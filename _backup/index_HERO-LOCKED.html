@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru" data-palette="v1" data-hero="a">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Твой личный ДЖАРВИС за вечер — курс по экосистеме Claude</title>
+<meta name="description" content="За один вечер собери систему на Claude, которая пишет, считает и автоматизирует за тебя. Курс для маркетологов, экспертов и предпринимателей." />
+<!-- OG / Twitter: превью при шеринге (в т.ч. в Telegram).
+     ВАЖНО: на проде укажи АБСОЛЮТНЫЙ url картинки (https://домен/og-cover.png) — относительный Telegram может не подхватить. -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Твой личный ДЖАРВИС за вечер — курс по Claude" />
+<meta property="og:description" content="За один вечер собери систему на Claude, которая пишет, считает и автоматизирует за тебя." />
+<meta property="og:image" content="og-cover.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="ru_RU" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Твой личный ДЖАРВИС за вечер" />
+<meta name="twitter:description" content="Курс по экосистеме Claude. Собери систему, которая работает за тебя." />
+<meta name="twitter:image" content="og-cover.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ АТМОСФЕРА ============ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="fog" aria-hidden="true">
+  <span class="fog-blob fog-blob--a" data-parallax="0.05"></span>
+  <span class="fog-blob fog-blob--b" data-parallax="0.09"></span>
+  <span class="fog-blob fog-blob--c" data-parallax="0.04"></span>
+</div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<!-- ============ КУРСОР-КОМЕТА ============ -->
+<canvas class="comet" id="comet" aria-hidden="true"></canvas>
+<div class="reticle" aria-hidden="true"><span class="reticle-ring"></span></div>
+
+<!-- ============ БОКОВОЙ РЕЛЬС ============ -->
+<aside class="rail rail--left" aria-hidden="true">
+  <span class="rail__brand">СОБРАНО · НА · CLAUDE</span>
+  <span class="rail__line"><i id="railFill"></i></span>
+  <span class="rail__seq" id="railSeq">001 / 007</span>
+</aside>
+
+<!-- ============ 00 · BOOT-UP ============ -->
+<div class="boot" id="boot">
+  <div class="boot__inner">
+    <div class="boot__brand">STARK INDUSTRIES <span>// ДЖАРВИС v1.0</span></div>
+    <div class="boot__title">ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ</div>
+    <div class="boot__bar"><span class="boot__fill" id="bootFill"></span></div>
+    <div class="boot__pct"><span id="bootPct">0</span>% ▸ 100%</div>
+    <div class="boot__status">
+      <span>РЕАКТОР · ОНЛАЙН</span><span>ПАМЯТЬ · ЗАГРУЖЕНА</span><span>ДЖАРВИС · ГОТОВ</span>
+    </div>
+    <div class="boot__skip">нажми, чтобы пропустить</div>
+  </div>
+</div>
+
+<!-- ============ ШАПКА ============ -->
+<header class="topbar">
+  <div class="topbar__brand">J.A.R.V.I.S.<span>/ Claude за вечер</span></div>
+  <a href="#price" class="topbar__pill" data-magnetic><i aria-hidden="true"></i>НАБОР ОТКРЫТ · ОТ 990&nbsp;₽</a>
+</header>
+
+<main>
+
+  <!-- ============ 01 · HERO (центрированный оффер) ============ -->
+  <section class="section hero" id="hero" data-ghost="01">
+    <div class="wrap hero__wrap hero__grid">
+      <div class="hero__copy">
+        <span class="claude-chip reveal">Для всех, кто хочет стать эффективнее&nbsp;×10</span>
+        <h1 class="hero__title reveal">
+          Ты теряешь деньги и&nbsp;время на&nbsp;то, что <span class="hl">Claude</span>
+          закрывает за&nbsp;час и&nbsp;20&nbsp;$
+        </h1>
+        <p class="hero__sub reveal">
+          За один вечер Claude станет твоим ДЖАРВИСОМ: пишет, считает и&nbsp;автоматизирует за&nbsp;тебя.<br>
+          <em>А&nbsp;ты — настоящим Железным человеком.</em>
+        </p>
+        <div class="hero__cta reveal">
+          <a href="#price" class="btn btn--primary" data-magnetic>Получить доступ</a>
+        </div>
+        <div class="trust reveal">
+          <span>● Доступ сразу</span><span>● Возврат денег 7 дней</span><span>● Разовый платёж</span>
+        </div>
+      </div>
+
+      <!-- ОБРАЗ: оригинальный броне-бюст (заменим на 3D-рендер дизайнера) -->
+      <div class="hero__visual reveal" aria-hidden="true">
+        <span class="hero__glow"></span>
+        <img class="hero__photo" src="suit/hero.png" alt="" onerror="this.remove()" onload="this.closest('.hero__visual').classList.add('has-photo')" />
+        <div class="hero__ph"><span>МЕСТО ПОД ПЕРСОНАЖА</span><b>положи&nbsp;→ suit/hero.png</b></div>
+        <div class="hv hv--armor">
+        <svg class="herosuit" viewBox="0 0 400 480" fill="none">
+          <defs>
+            <linearGradient id="hMetal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#1d2f4c"/><stop offset=".5" stop-color="#0c1626"/><stop offset="1" stop-color="#060d18"/>
+            </linearGradient>
+            <linearGradient id="hMetal2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#26406a"/><stop offset="1" stop-color="#0a1322"/>
+            </linearGradient>
+            <radialGradient id="hReactor" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#eaf6ff"/><stop offset=".4" stop-color="#86d6ff"/>
+              <stop offset=".78" stop-color="#00A3FF"/><stop offset="1" stop-color="#00A3FF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- шея -->
+          <path d="M184 212 L216 212 L218 286 L182 286 Z" fill="#0a1322" stroke="#3a5f93" stroke-width="1"/>
+          <!-- плечи / торс (соединены со шлемом) -->
+          <path d="M60 480 L88 296 L170 312 L164 480 Z" fill="url(#hMetal2)" stroke="#3a5f93" stroke-width="1.2"/>
+          <path d="M340 480 L312 296 L230 312 L236 480 Z" fill="url(#hMetal2)" stroke="#3a5f93" stroke-width="1.2"/>
+          <path d="M150 480 L152 300 L200 272 L248 300 L250 480 Z" fill="url(#hMetal)" stroke="#3a5f93" stroke-width="1.2"/>
+          <path d="M150 300 L200 272 L200 480 L150 480 Z" fill="#0a1524" opacity=".5"/>
+          <line x1="200" y1="300" x2="200" y2="470" stroke="#3a5f93" stroke-width="1" opacity=".45"/>
+          <!-- реактор -->
+          <circle cx="200" cy="362" r="46" fill="url(#hReactor)" class="hreactor"/>
+          <circle cx="200" cy="362" r="24" fill="none" stroke="#cfeeff" stroke-width="3"/>
+          <circle cx="200" cy="362" r="12" fill="#eaf6ff"/>
+          <!-- шлем -->
+          <path d="M150 64 L200 46 L250 64 L260 132 L140 132 Z" fill="url(#hMetal2)" stroke="#3a5f93" stroke-width="1.4"/>
+          <path d="M142 130 L258 130 L246 192 L214 220 L186 220 L154 192 Z" fill="url(#hMetal)" stroke="#3a5f93" stroke-width="1.4"/>
+          <path d="M200 130 L246 192 L214 220 L200 220 Z" fill="#0a1524" opacity=".5"/>
+          <!-- глаза -->
+          <path d="M164 150 L197 143 L197 163 L164 167 Z" fill="#bfeaff" class="heye"/>
+          <path d="M236 150 L203 143 L203 163 L236 167 Z" fill="#bfeaff" class="heye"/>
+          <!-- рот-вентиляция -->
+          <path d="M182 196 L218 196 L214 205 L186 205 Z" fill="#00A3FF" opacity=".55"/>
+          <line x1="160" y1="178" x2="178" y2="178" stroke="#3a5f93" stroke-width="2"/>
+          <line x1="222" y1="178" x2="240" y2="178" stroke="#3a5f93" stroke-width="2"/>
+        </svg>
+        </div>
+
+        <!-- ВАРИАНТ B: Claude как ДЖАРВИС (ядро + HUD-кольца) -->
+        <div class="hv hv--core">
+          <svg class="herocore" viewBox="0 0 400 480" fill="none">
+            <defs>
+              <radialGradient id="cCore" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#ffffff"/><stop offset=".34" stop-color="#bde6ff"/>
+                <stop offset=".7" stop-color="#00A3FF"/><stop offset="1" stop-color="#00A3FF" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g class="rot s1"><circle cx="200" cy="240" r="150" stroke="#1f3a5c" stroke-width="1.4"/></g>
+            <g class="rot s1"><circle cx="200" cy="240" r="150" stroke="#00A3FF" stroke-width="2.6" stroke-dasharray="2 24"/></g>
+            <g class="rot s2"><circle cx="200" cy="240" r="112" stroke="#3a6ea5" stroke-width="1.6" stroke-dasharray="12 12"/></g>
+            <g class="rot s3"><circle cx="200" cy="240" r="80" stroke="#86d6ff" stroke-width="1.2" stroke-dasharray="1 7"/></g>
+            <g class="rot s2">
+              <circle cx="200" cy="120" r="4.5" fill="#cfeeff"/>
+              <circle cx="318" cy="300" r="3" fill="#86d6ff"/>
+              <circle cx="96" cy="288" r="2.5" fill="#86d6ff"/>
+            </g>
+            <circle cx="200" cy="240" r="66" fill="url(#cCore)" class="ccore"/>
+            <circle cx="200" cy="240" r="30" fill="none" stroke="#eaf6ff" stroke-width="2"/>
+            <circle cx="200" cy="240" r="13" fill="#eaf6ff"/>
+          </svg>
+        </div>
+
+        <span class="hero__smoke"></span>
+        <div class="hero-switch" role="group" aria-label="Образ героя">
+          <button type="button" data-hero="a" class="is-active">Броня</button>
+          <button type="button" data-hero="b">Claude-ДЖАРВИС</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">SCROLL ▾</div>
+  </section>
+
+  <!-- ============ 02 · ПРОБЛЕМА ============ -->
+  <section class="section problem" id="problem" data-ghost="02">
+    <div class="wrap">
+      <div class="hud-corner">SEQ 002 / 007 // DIAGNOSTIC</div>
+      <div class="problem__layout">
+        <div class="problem__big">
+          <span class="bignum">10<i>%</i></span>
+          <span class="bignum__cap">так ты сейчас используешь Claude</span>
+        </div>
+        <div class="problem__text">
+          <h2 class="h2 reveal">А можно — <span class="accent">на 100%.</span> Это и есть твой личный ДЖАРВИС.</h2>
+          <p class="lead reveal">Вот лишь часть того, что он закроет за&nbsp;тебя на автомате:</p>
+        </div>
+      </div>
+
+      <div class="caps reveal" aria-label="Что умеет Claude">
+        <span class="cap cap--on">Контент-план на месяц</span>
+        <span class="cap">Посты и Reels</span>
+        <span class="cap cap--on">Разбор конкурентов</span>
+        <span class="cap">Лендинги и сайты</span>
+        <span class="cap">Email-цепочки</span>
+        <span class="cap cap--on">Telegram-боты</span>
+        <span class="cap">Презентации</span>
+        <span class="cap">Аналитика и отчёты</span>
+        <span class="cap">Карусели</span>
+        <span class="cap">Скрипты продаж</span>
+        <span class="cap cap--on">Автоматизация рутины</span>
+        <span class="cap">Воронки и лид-магниты</span>
+        <span class="cap">Брифы и ТЗ</span>
+        <span class="cap">Чтение PDF и таблиц</span>
+        <span class="cap cap--on">Ночной research рынка</span>
+        <span class="cap">Контент в твоём стиле</span>
+        <span class="cap cap--on">Личный ассистент 24/7</span>
+        <span class="cap">Резюме созвонов</span>
+        <span class="cap">Переводы и редактура</span>
+        <span class="cap">Холодные письма</span>
+        <span class="cap cap--on">Сценарии Reels</span>
+        <span class="cap">Чат-боты поддержки</span>
+        <span class="cap cap--more">+ ещё десятки задач под твою нишу</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ДОСТУП ИЗ РОССИИ ============ -->
+  <section class="section ru" id="ru">
+    <div class="wrap ru__wrap">
+      <div class="ru__card framed reveal">
+        <span class="ru__flag" aria-hidden="true"></span>
+        <span class="ru__badge">РАБОТАЕТ В РОССИИ</span>
+        <h2 class="ru__title">Claude официально <span class="accent-red">недоступен в РФ.</span> На курсе показываю, как зайти за 30 минут.</h2>
+        <ul class="ru__steps">
+          <li><b>01</b> Вход и регистрация из России</li>
+          <li><b>02</b> Виртуальный номер и подтверждение</li>
+          <li><b>03</b> Оплата картой РФ, без танцев с бубном</li>
+        </ul>
+        <p class="ru__note">Никаких «найди инструкцию в интернете». Пошагово, со скриншотами, проверено в 2026-м.</p>
+      </div>
+      <div class="ru__img reveal" data-todo>
+        <img src="suit/ru-hero.png" alt="" class="ru__photo" onerror="this.remove()" />
+        <span class="ru__imgcap">русский Железный человек<br>(кокошник + балалайка)<br><b>положи файл&nbsp;→ suit/ru-hero.png</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- калькулятор перенесён ниже, к блоку цены (ROI перед покупкой) -->
+
+  <!-- CTA-полоса перед курсом: костюм = 8 уроков -->
+  <section class="ctaband">
+    <div class="wrap ctaband__wrap reveal">
+      <p>Твой костюм собирается из <b>8 уроков.</b> Исправь рутину за один вечер.</p>
+      <a href="#program" class="btn btn--primary" data-magnetic>Собрать костюм →</a>
+    </div>
+  </section>
+
+  <!-- ============ 04 · СБОРКА КОСТЮМА (костюм по центру) ============ -->
+  <section class="assembly" id="program" data-ghost="04">
+    <div class="assembly__sticky">
+      <div class="hud-corner hud-corner--light">SEQ 004 / 007 // ASSEMBLY LOG</div>
+      <div class="assembly__stage">
+
+        <!-- КОСТЮМ — крупно по центру -->
+        <div class="suit-wrap">
+          <div class="suit-imgs" id="suitImgs">
+            <img class="part-img" data-part="5" src="suit/legs.png"    alt="" />
+            <img class="part-img" data-part="6" src="suit/boots.png"   alt="" />
+            <img class="part-img" data-part="3" src="suit/chest.png"   alt="" />
+            <img class="part-img" data-part="4" src="suit/arms.png"    alt="" />
+            <img class="part-img" data-part="1" src="suit/reactor.png" alt="" />
+            <img class="part-img" data-part="2" src="suit/helmet.png"  alt="" />
+          </div>
+          <svg class="suit" viewBox="0 0 360 600" id="suit" aria-label="Костюм собирается из 7 уроков">
+            <defs>
+              <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="var(--glow)" stop-opacity="1"/>
+                <stop offset="60%" stop-color="var(--accent)" stop-opacity=".55"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g class="part" data-part="5">
+              <path d="M150 360 L210 360 L206 470 L188 470 L180 400 L172 470 L154 470 Z"/>
+              <rect x="160" y="392" width="40" height="6" rx="2" class="seam"/>
+            </g>
+            <g class="part" data-part="6">
+              <path d="M150 470 L174 470 L176 506 L146 506 L146 492 Z"/>
+              <path d="M186 470 L210 470 L214 492 L214 506 L184 506 Z"/>
+              <circle cx="160" cy="500" r="6" class="repulsor"/><circle cx="200" cy="500" r="6" class="repulsor"/>
+            </g>
+            <g class="part" data-part="4">
+              <path d="M120 212 L150 220 L150 250 L130 320 L116 316 L126 250 Z"/>
+              <path d="M240 212 L210 220 L210 250 L230 320 L244 316 L234 250 Z"/>
+              <path d="M112 316 L130 320 L126 352 L106 348 Z" class="gauntlet"/>
+              <path d="M248 316 L230 320 L234 352 L254 348 Z" class="gauntlet"/>
+              <circle cx="116" cy="334" r="4" class="repulsor"/><circle cx="244" cy="334" r="4" class="repulsor"/>
+            </g>
+            <g class="part" data-part="3">
+              <path d="M150 214 L210 214 L214 300 L196 364 L164 364 L146 300 Z"/>
+              <path d="M210 214 L180 226 L180 364 L196 364 L214 300 Z" opacity=".7"/>
+              <rect x="158" y="320" width="44" height="5" rx="2" class="seam"/>
+              <rect x="162" y="334" width="36" height="5" rx="2" class="seam"/>
+            </g>
+            <g class="part" data-part="1">
+              <circle cx="180" cy="262" r="34" fill="url(#coreGlow)" class="core-glow"/>
+              <circle cx="180" cy="262" r="20" class="core-ring"/><circle cx="180" cy="262" r="12" class="core-ring"/>
+              <circle cx="180" cy="262" r="6" class="core-center"/>
+            </g>
+            <g class="part" data-part="2">
+              <path d="M156 96 Q180 70 204 96 L208 150 Q204 186 180 196 Q156 186 152 150 Z"/>
+              <path d="M162 150 L176 150 L174 168 L164 168 Z" class="eye"/>
+              <path d="M198 150 L184 150 L186 168 L196 168 Z" class="eye"/>
+              <path d="M170 178 L190 178 L188 188 L172 188 Z" class="faceplate"/>
+            </g>
+          </svg>
+          <div class="suit-aura" data-part="7" aria-hidden="true"></div>
+        </div>
+
+        <!-- ИНФО: один активный урок (текст меняется по скроллу) -->
+        <div class="assembly__info">
+          <span class="assembly__kicker">Восемь уроков — один собранный костюм</span>
+          <div class="lesson-deck">
+            <article class="lesson" data-step="0">
+              <span class="lesson__no">УРОК 00</span>
+              <h3>Лаборатория</h3>
+              <p>Разберёмся, как устроен Claude, и составим пошаговый план сборки твоего ДЖАРВИСА.</p>
+            </article>
+            <article class="lesson" data-step="1">
+              <span class="lesson__no">УРОК 01</span>
+              <h3>Включаем реактор</h3>
+              <p>Тарифы, токены и установка Claude в России. Выходишь с готовым оплаченным аккаунтом.</p>
+            </article>
+            <article class="lesson" data-step="2">
+              <span class="lesson__no">УРОК 02</span>
+              <h3>Настраиваем ДЖАРВИСА</h3>
+              <p>Научим Claude писать твоим голосом и помнить тебя от чата к чату. Настроил один раз, дальше он знает про тебя и проекты всё нужное.</p>
+            </article>
+            <article class="lesson" data-step="3">
+              <span class="lesson__no">УРОК 03</span>
+              <h3>Рабочее пространство</h3>
+              <p>Заведём под каждого клиента отдельное пространство со всем контекстом. Открываешь новый чат, а он уже в теме дела.</p>
+            </article>
+            <article class="lesson" data-step="4">
+              <span class="lesson__no">УРОК 04</span>
+              <h3>Механические руки</h3>
+              <p>Claude Cowork берёт первые задачи на себя. Делает работу, пока ты спишь.</p>
+            </article>
+            <article class="lesson" data-step="5">
+              <span class="lesson__no">УРОК 05</span>
+              <h3>Броня снаружи</h3>
+              <p>Дизайн через Claude Design: первый сайт, карусели, презентации, креативы.</p>
+            </article>
+            <article class="lesson" data-step="6">
+              <span class="lesson__no">УРОК 06</span>
+              <h3>Автопилот</h3>
+              <p>Claude Code собирает автоматизацию. Первые продукты и автопроцессы на коде.</p>
+            </article>
+            <article class="lesson" data-step="7">
+              <span class="lesson__no">УРОК 07</span>
+              <h3>I am Iron Man</h3>
+              <p>Собираем всё в одну систему и готовимся запускать свой продукт за неделю. Превращаешься в настоящего Тони Старка.</p>
+            </article>
+          </div>
+          <div class="steps" id="steps" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="assembly__progress"><span id="asmFill"></span></div>
+          <p class="assembly__hint">Листай — костюм собирается ↓</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA-полоса после сборки костюма -->
+  <section class="ctaband">
+    <div class="wrap ctaband__wrap reveal">
+      <p>Костюм собран. <b>Осталось забрать доступ.</b></p>
+      <a href="#price" class="btn btn--primary" data-magnetic>Получить доступ</a>
+    </div>
+  </section>
+
+  <!-- ============ 05 · ДЛЯ КОГО (с фото людей) ============ -->
+  <section class="section who" id="who" data-ghost="05">
+    <div class="wrap">
+      <div class="hud-corner">SEQ 005 / 007 // TARGET PROFILE</div>
+      <h2 class="h2 reveal">Подойдёт, если делаешь руками <span class="accent">и хочешь перестать.</span></h2>
+      <div class="who__grid">
+        <article class="who__card framed reveal">
+          <div class="who__photo" data-todo>фото · маркетолог</div>
+          <h3>Маркетологи</h3>
+          <p>Несколько проектов, выгораешь на контенте и отчётах.</p>
+          <ul>
+            <li>Контент-план за полчаса</li>
+            <li>Разбор конкурентов на автомате</li>
+            <li>Аналитика без Excel</li>
+          </ul>
+        </article>
+        <article class="who__card framed reveal">
+          <div class="who__photo" data-todo>фото · эксперт</div>
+          <h3>Эксперты</h3>
+          <p>Психолог, коуч, юрист. Сам пишешь, сам упаковываешь.</p>
+          <ul>
+            <li>Лендинги и офферы под себя</li>
+            <li>Тексты под Reels и карусели</li>
+            <li>Ассистент в твоём стиле</li>
+          </ul>
+        </article>
+        <article class="who__card framed reveal">
+          <div class="who__photo" data-todo>фото · предприниматель</div>
+          <h3>Предприниматели</h3>
+          <p>Команда 3–30 человек. Нужен рабочий инструмент сейчас.</p>
+          <ul>
+            <li>Регламенты за вечер</li>
+            <li>Презентации для инвесторов</li>
+            <li>Ночной research рынка</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 · ЧТО ВНУТРИ / АРСЕНАЛ ============ -->
+  <section class="section arsenal" id="arsenal" data-ghost="06">
+    <div class="wrap">
+      <div class="hud-corner">SEQ 006 / 007 // ARSENAL</div>
+      <h2 class="h2 reveal">Не только уроки. <span class="accent">Готовый арсенал</span> — копируй и применяй.</h2>
+      <div class="arsenal__grid">
+        <article class="arsenal__card framed arsenal__card--wide reveal">
+          <span class="arsenal__count" data-todo>XX+</span>
+          <h3>Промпты</h3>
+          <p>Бриф подрядчику, разбор конкурента, контент-план, аудит tone of voice.</p>
+        </article>
+        <article class="arsenal__card framed reveal">
+          <span class="arsenal__count" data-todo>XX</span>
+          <h3>Скилы</h3>
+          <p>Контент-план, копирайтер под твой стиль, аналитик.</p>
+        </article>
+        <article class="arsenal__card framed reveal">
+          <span class="arsenal__count" data-todo>XX</span>
+          <h3>Шаблоны</h3>
+          <p>Лендинги, карусели, презентации, раскадровки Reels.</p>
+        </article>
+        <article class="arsenal__card framed arsenal__card--wide reveal">
+          <span class="arsenal__count" data-todo>XX</span>
+          <h3>Агенты</h3>
+          <p>Ночной research, дайджест рынка, автобриф на клиента — без кода.</p>
+        </article>
+      </div>
+      <p class="arsenal__note reveal">Полный арсенал входит в тариф <b>PRO</b>. <span data-todo>(цифры — заглушки)</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 07 · АВТОР + КЕЙСЫ ============ -->
+  <section class="section author" id="author" data-ghost="07">
+    <div class="wrap">
+      <div class="hud-corner">SEQ 007 / 007 // OPERATOR</div>
+      <div class="author__top">
+        <div class="author__photo" data-todo>
+          <img src="suit/avatar.png" alt="" class="author__img" onerror="this.remove()" />
+          <span class="author__phcap">фото Арины<br>заменить</span>
+        </div>
+        <div class="author__intro">
+          <h2 class="h2 reveal">Арина Михална</h2>
+          <p class="lead reveal">Маркетолог, предприниматель, основатель АМ Агентства. Зарабатываю
+            с помощью Claude и показываю на курсе ровно то, чем пользуюсь сама.</p>
+        </div>
+      </div>
+
+      <div class="cases reveal">
+        <article class="case framed">
+          <span class="case__num">10 мин</span>
+          <p>неделя контента — вместо двух дней</p>
+        </article>
+        <article class="case framed">
+          <span class="case__num">1 вечер</span>
+          <p>собрала продукт на коде с нуля</p>
+        </article>
+        <article class="case framed">
+          <span class="case__num">−200 000 ₽<i>/мес</i></span>
+          <p>срезала расходы агентства на рутину</p>
+        </article>
+        <article class="case framed">
+          <span class="case__num">100%</span>
+          <p>всё на Claude: этот сайт, боты, материалы курса</p>
+        </article>
+      </div>
+
+      <div class="reviews">
+        <h3 class="reviews__title reveal">Отзывы учеников <span data-todo>· ЗАГЛУШКИ — заменить реальными</span></h3>
+        <div class="reviews__grid">
+          <figure class="review framed reveal" data-todo>
+            <div class="review__ava" data-todo>фото</div>
+            <blockquote>«Заглушка под отзыв: конкретный результат — что собрал, сколько сэкономил.»</blockquote>
+            <figcaption>Имя · ниша</figcaption>
+          </figure>
+          <figure class="review framed reveal" data-todo>
+            <div class="review__ava" data-todo>фото</div>
+            <blockquote>«Заглушка: “за вечер собрал агента, утром пришёл первый дайджест”.»</blockquote>
+            <figcaption>Имя · ниша</figcaption>
+          </figure>
+          <figure class="review framed reveal" data-todo>
+            <div class="review__ava" data-todo>фото</div>
+            <blockquote>«Заглушка: можно скрин результата вместо текста.»</blockquote>
+            <figcaption>Имя · ниша</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КОМУ НЕ ПОДХОДИТ (после соцдоказательства) ============ -->
+  <section class="section notfit" id="notfit">
+    <div class="wrap">
+      <div class="hud-corner">// FILTER</div>
+      <h2 class="h2 reveal">А вот <span class="accent-red">не бери,</span> если это про тебя.</h2>
+      <p class="lead reveal">Честно, чтобы не злиться потом друг на друга.</p>
+      <ul class="notfit__list">
+        <li class="reveal"><span>✕</span> Ищешь волшебную кнопку «сделай всё за меня», пока ты лежишь.</li>
+        <li class="reveal"><span>✕</span> Не готов потратить один вечер, чтобы собрать систему под себя.</li>
+        <li class="reveal"><span>✕</span> Любишь «послушать теорию», а делать руками не собираешься.</li>
+        <li class="reveal"><span>✕</span> Тебе и так норм тратить часы на рутину. Тогда зачем.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ МЕТА: СОБРАНО НА CLAUDE ============ -->
+  <section class="section meta" id="meta">
+    <div class="wrap meta__grid">
+      <div class="meta__copy">
+        <div class="hud-corner">// PROOF</div>
+        <h2 class="h2 reveal">И да — <span class="accent">этот сайт собран на Claude.</span></h2>
+        <p class="lead reveal">Лендинг, боты, материалы курса и продукты агентства — всё сделано тем же
+          способом, которому я учу. Сайт, на котором ты сейчас, и есть живое доказательство, что это работает.</p>
+        <div class="meta__stats reveal">
+          <div class="case"><span class="case__num">1 вечер</span><p>от идеи до готового сайта</p></div>
+          <div class="case"><span class="case__num">0 строк</span><p>написано руками</p></div>
+          <div class="case"><span class="case__num">100%</span><p>собрано на Claude</p></div>
+        </div>
+      </div>
+      <div class="meta__mock reveal" aria-hidden="true">
+        <div class="mock">
+          <div class="mock__bar"><span></span><span></span><span></span><i>claude.ai</i></div>
+          <div class="mock__body">
+            <div class="mock__msg mock__msg--you">Собери лендинг для курса по Claude. Тёмный, кино, без воды.</div>
+            <div class="mock__msg mock__msg--ai">Готово. Hero, проблема, программа, цена, оплата. Показываю ↓</div>
+            <div class="mock__chip">● index.html · собран</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КАЛЬКУЛЯТОР ПОТЕРЬ (ROI перед ценой) ============ -->
+  <section class="section calc" id="calc">
+    <div class="wrap">
+      <div class="hud-corner">// LOSS TELEMETRY</div>
+      <h2 class="h2 reveal">Прежде чем решить — посчитай, <span class="accent">сколько рутина уже забрала.</span></h2>
+      <p class="lead reveal">Ставка за час и часы рутины в неделю. Дальше Claude считает сам.</p>
+
+      <div class="calc__panel framed reveal">
+        <div class="calc__bar">
+          <span class="calc__tag">LOSS&nbsp;CALCULATOR</span>
+          <span class="calc__live"><i></i>LIVE</span>
+        </div>
+
+        <div class="calc__inputs">
+          <div class="ctrl">
+            <div class="ctrl__top">
+              <span class="ctrl__label">Ставка за час</span>
+              <span class="ctrl__val"><input type="number" id="rate" value="2000" min="0" max="50000" step="100" inputmode="numeric" data-magnetic />&nbsp;₽</span>
+            </div>
+            <input type="range" id="rateR" class="slider" min="0" max="10000" step="100" value="2000" aria-label="Ставка за час" />
+          </div>
+          <div class="ctrl">
+            <div class="ctrl__top">
+              <span class="ctrl__label">Часов рутины в неделю</span>
+              <span class="ctrl__val"><input type="number" id="hours" value="10" min="0" max="80" step="1" inputmode="numeric" data-magnetic />&nbsp;ч</span>
+            </div>
+            <input type="range" id="hoursR" class="slider" min="0" max="60" step="1" value="10" aria-label="Часов рутины в неделю" />
+          </div>
+        </div>
+
+        <div class="calc__readout">
+          <div class="stat stat--alarm stat--feat">
+            <span class="stat__label">Уже потеряно с начала года</span>
+            <span class="stat__value" id="lossYear">0 ₽</span>
+            <span class="stat__scan" aria-hidden="true"></span>
+          </div>
+          <div class="stat">
+            <span class="stat__label">Теряешь в месяц</span>
+            <span class="stat__value" id="lossMonth">0 ₽</span>
+          </div>
+          <div class="stat stat--gauge">
+            <span class="stat__label">Окупается за</span>
+            <div class="ring" id="ring"><b class="stat__value" id="payback">0</b></div>
+          </div>
+        </div>
+
+        <a href="#price" class="btn btn--primary calc__btn" data-magnetic>Остановить это за один вечер</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 · ЦЕНА + СРОЧНОСТЬ ============ -->
+  <section class="section price" id="price" data-ghost="08">
+    <div class="wrap">
+      <div class="hud-corner">// PAYLOAD</div>
+
+      <div class="urgency framed reveal">
+        <span class="urgency__badge">ЦЕНА НА ЗАПУСКЕ</span>
+        <span class="urgency__text">Сейчас стартовая цена. До повышения осталось:</span>
+        <span class="urgency__timer" id="timer">--д --ч --м --с</span>
+        <span class="urgency__todo" data-todo>(дату повышения настрой в script.js)</span>
+      </div>
+
+      <h2 class="h2 reveal">Два тарифа. <span class="accent">Выбери свой.</span></h2>
+
+      <div class="price__grid">
+        <article class="plan framed reveal">
+          <h3 class="plan__name">База</h3>
+          <div class="plan__price">990 ₽ <span>· разовый платёж</span></div>
+          <ul class="plan__list">
+            <li>7 видео-уроков</li>
+            <li>Презентации и материалы каждого урока</li>
+            <li>Доступ на 2 недели</li>
+          </ul>
+          <a href="#" class="btn btn--ghost" data-magnetic>Получить доступ · 990 ₽</a>
+          <p class="plan__trust">Доступ сразу · Возврат 7 дней</p>
+        </article>
+
+        <article class="plan plan--pro framed reveal">
+          <span class="plan__flag">выбирают большинство</span>
+          <h3 class="plan__name">PRO</h3>
+          <div class="plan__price">3990 ₽ <span>· разовый платёж</span></div>
+          <ul class="plan__list">
+            <li>Всё из тарифа База</li>
+            <li>Полный арсенал: промпты, скилы, шаблоны, агенты</li>
+            <li>Чат с разбором твоих задач первую неделю</li>
+            <li>Доступ навсегда, со всеми обновлениями</li>
+          </ul>
+          <a href="#" class="btn btn--primary" data-magnetic>Забрать PRO · 3990 ₽</a>
+          <p class="plan__trust">Доступ сразу · Возврат 7 дней</p>
+        </article>
+      </div>
+
+      <div class="guarantee framed reveal">
+        <div class="guarantee__shield" aria-hidden="true">🛡</div>
+        <div>
+          <h3>Гарантия возврата 7 дней</h3>
+          <p>Не зайдёт — вернём деньги без вопросов. Ты ничем не рискуешь.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 · ВОПРОСЫ ============ -->
+  <section class="section faq" id="faq" data-ghost="09">
+    <div class="wrap">
+      <div class="hud-corner">// FAQ</div>
+      <h2 class="h2 reveal">Вопросы</h2>
+      <div class="faq__list">
+        <details class="faq__item reveal"><summary>Я не пользовался Claude, справлюсь?</summary>
+          <p>Да. Первый урок с нуля: вход, интерфейс, что нажимать. К седьмому соберёшь агента. Без кода.</p></details>
+        <details class="faq__item reveal"><summary>Нужна платная подписка?</summary>
+          <p>Для большинства уроков хватит бесплатного тарифа. Для части нужен Pro за 20 $/мес — внутри есть урок, как решить.</p></details>
+        <details class="faq__item reveal"><summary>Как оплатить из России?</summary>
+          <p>Решаемо. Подробную инструкцию со скриншотами даю в первом уроке.</p></details>
+        <details class="faq__item reveal"><summary>Это курс для разработчиков?</summary>
+          <p>Нет. В уроке про Code ты просишь Claude написать автоматизацию, а не пишешь код руками.</p></details>
+        <details class="faq__item reveal"><summary>Сколько у меня будет доступа?</summary>
+          <p>База — 2 недели. PRO — навсегда, с обновлениями.</p></details>
+        <details class="faq__item reveal"><summary>Что, если не зайдёт?</summary>
+          <p>Пишешь в поддержку в течение 7 дней — возвращаю деньги без вопросов.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · ФИНАЛ ============ -->
+  <section class="section final" id="final" data-ghost="10">
+    <div class="wrap final__wrap">
+      <h2 class="final__title reveal">Один вечер сборки <span class="accent-red">или ещё месяц вручную.</span></h2>
+      <p class="lead reveal">Рутина не исчезнет сама. Вопрос только в том, делаешь ты её руками или отдаёшь Claude.</p>
+      <div class="hero__cta reveal">
+        <a href="#" class="btn btn--ghost" data-magnetic>База — 990 ₽</a>
+        <a href="#" class="btn btn--primary" data-magnetic>PRO — 3990 ₽ · забрать всё</a>
+      </div>
+      <div class="trust reveal"><span>● Доступ сразу</span><span>● Возврат денег 7 дней</span></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- липкая кнопка (появляется при скролле) -->
+<a href="#price" class="sticky-cta" id="stickyCta" data-magnetic>Получить доступ →</a>
+
+<!-- ============ 11 · ПОДВАЛ ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__about">
+      <div class="footer__brand">J.A.R.V.I.S. <span>/ Claude за вечер</span></div>
+      <p class="footer__desc">Курс по экосистеме Claude для маркетологов, экспертов и предпринимателей. Без кода, без воды.</p>
+      <p class="footer__legal">ИП Шульга Арина Михайловна · ОГРНИП 324784700024374 · ИНН 784811680668</p>
+    </div>
+    <nav class="footer__col">
+      <h4>Курс</h4>
+      <a href="#program">Программа</a>
+      <a href="#arsenal">Что внутри</a>
+      <a href="#price">Цена</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <nav class="footer__col">
+      <h4>Связаться</h4>
+      <a href="https://t.me/+YHJsLx_lR0xlM2Qy" target="_blank" rel="noopener">Telegram-сообщество</a>
+      <a href="#author">Об авторе</a>
+    </nav>
+    <nav class="footer__col">
+      <h4>Документы</h4>
+      <a href="#">Публичная оферта</a>
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Согласие на рассылку</a>
+    </nav>
+  </div>
+  <div class="wrap footer__bottom">
+    <span>© 2026 · АМ Лабс</span>
+    <span class="footer__sign">Сайт сделан АМ Агентством с помощью Claude ·
+      <a href="https://t.me/am_agency_sales" target="_blank" rel="noopener">Заказать такой же</a></span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

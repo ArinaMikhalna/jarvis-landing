@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Арсенал · ДЖАРВИС за вечер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f3f7fd; --ink:#0b1626; --ink-dim:#5a6b80; --ink-faint:#8a99ad;
+    --accent:#0a84ff; --accent-deep:#0066d6; --soft:#e9f2ff; --energy:#ee140f;
+    --line:#e3eaf3; --line-strong:#cdd9ea;
+    --ok:#0f9d6b; --ok-bg:#e7f7f0; --mid:#b4690e; --mid-bg:#fbf0df; --adv:#475569; --adv-bg:#eef1f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-family:"Inter Tight",system-ui,sans-serif;font-size:12.5px;line-height:1.55}
+  @page{size:A4;margin:0}
+  .page{position:relative;width:210mm;min-height:297mm;padding:18mm 16mm;background:var(--bg);overflow:hidden;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  a{color:var(--accent-deep);text-decoration:none}
+
+  /* cover */
+  .cover{min-height:297mm;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(120% 55% at 50% -8%, var(--soft), #fff 62%)}
+  .brandrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;color:var(--ink-faint);margin-bottom:28px}
+  .brandrow b{color:var(--accent)}
+  .chip{display:inline-block;align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;
+    color:#fff;background:var(--accent);border-radius:999px;padding:7px 16px;margin-bottom:24px}
+  .cover h1{font-family:"Unbounded",sans-serif;font-weight:800;font-size:46px;line-height:1.05;letter-spacing:-.01em;color:var(--ink)}
+  .cover h1 .blue{color:var(--accent)}
+  .cover__big{font-family:"Unbounded",sans-serif;font-weight:900;font-size:150px;line-height:.9;color:var(--accent);margin:14px 0 4px}
+  .cover__big small{font-size:28px;font-weight:800;color:var(--ink);vertical-align:super;margin-left:6px}
+  .cover__big .plus{font-size:1.18em;font-weight:900;vertical-align:-.02em}
+  .cover__lead{color:var(--ink-dim);font-size:15px;max-width:140mm;margin-top:18px}
+  .cover__foot{margin-top:38px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-faint)}
+
+  .seq{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:9px}
+  h2.section{font-family:"Unbounded",sans-serif;font-weight:800;font-size:27px;line-height:1.05;margin-bottom:5px;color:var(--ink)}
+  h2.section .blue{color:var(--accent)}
+  .section__sub{color:var(--ink-faint);font-size:12px;margin-bottom:18px}
+
+  .note{border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:12px;background:var(--bg-soft);padding:15px 18px;margin-bottom:13px}
+  .note h3{font-family:"Unbounded",sans-serif;font-size:15px;font-weight:700;margin-bottom:7px}
+  .note p{color:var(--ink-dim);margin-bottom:6px}
+  .note p:last-child{margin-bottom:0}
+  .note b{color:var(--ink)}
+
+  /* difficulty legend */
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+  .badge{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:700;letter-spacing:.05em;border-radius:999px;padding:3px 9px}
+  .b-ok{color:var(--ok);background:var(--ok-bg)}
+  .b-mid{color:var(--mid);background:var(--mid-bg)}
+  .b-adv{color:var(--adv);background:var(--adv-bg)}
+
+  /* repo / material card */
+  .grid{display:flex;flex-direction:column;gap:10px}
+  .repo{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 16px;break-inside:avoid;
+    box-shadow:0 1px 0 rgba(11,22,38,.03)}
+  .repo__top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:3px}
+  .repo__name{font-family:"Unbounded",sans-serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .repo__stars{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--mid);white-space:nowrap}
+  .repo__desc{color:var(--ink-dim);font-size:12px;margin-bottom:5px}
+  .repo__meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .repo__who{font-size:11px;color:var(--ink-faint)}
+  .repo__url{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--accent-deep);word-break:break-all;
+    border-top:1px dashed var(--line);padding-top:6px;display:block}
+
+  .cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);font-weight:700;
+    margin:2px 0 9px;display:flex;align-items:center;gap:8px}
+  .cat .n{color:var(--ink-faint)}
+
+  /* our originals */
+  .mine{border:1px solid var(--line-strong);border-radius:12px;background:var(--bg-soft);padding:14px 17px;break-inside:avoid;margin-bottom:11px}
+  .mine .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9.5px;font-weight:700;letter-spacing:.12em;
+    color:#fff;background:var(--accent);border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  .mine h3{font-family:"Unbounded",sans-serif;font-weight:700;font-size:17px;margin-bottom:5px}
+  .mine .what{font-size:12px;color:var(--ink-dim);margin-bottom:9px}
+  .mine pre{font-family:"JetBrains Mono",monospace;font-size:10px;line-height:1.5;white-space:pre-wrap;
+    background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px 13px;color:#2a3a4f}
+
+  /* links page */
+  .links{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .linkcard{border:1px solid var(--line);border-radius:12px;background:var(--bg-soft);padding:15px 18px;break-inside:avoid}
+  .linkcard h3{font-family:"Unbounded",sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+  .linkcard p{color:var(--ink-faint);font-size:11.5px;margin-bottom:6px}
+  .linkcard a{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent-deep);word-break:break-all}
+  .endbrand{margin-top:26px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint)}
+  .endbrand b{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="page cover">
+  <div class="brandrow">J.A.R.V.I.S. <b>/</b> Claude за вечер &nbsp;·&nbsp; СОБРАНО НА <b>CLAUDE</b> · АМ ЛАБС</div>
+  <span class="chip">БОНУС-АРСЕНАЛ КУРСА</span>
+  <h1>Скиллы, которые мы<br><span class="blue">отобрали за тебя</span></h1>
+  <div class="cover__big">20<span class="plus">+</span><small>скиллов</small></div>
+  <p class="cover__lead">Не сто файлов, в&nbsp;которых утонешь. Отобранные рабочие скиллы с&nbsp;GitHub плюс наши собственные — разложено по&nbsp;задачам маркетологов, экспертов и&nbsp;предпринимателей. Бери, ставь, применяй за&nbsp;вечер.</p>
+  <div class="cover__foot">© 2026 · АМ ЛАБС &nbsp;·&nbsp; <a href="https://t.me/+YHJsLx_lR0xlM2Qy">Telegram-канал автора →</a></div>
+</section>
+
+<!-- КАК ПОЛЬЗОВАТЬСЯ -->
+<section class="page">
+  <div class="seq">// КАК ПОЛЬЗОВАТЬСЯ</div>
+  <h2 class="section">Два способа <span class="blue">поставить скилл</span></h2>
+  <p class="section__sub">первый подходит вообще всем — без терминала и кода</p>
+
+  <div class="note">
+    <h3>① Просто скопировать (подходит всем) — <span class="badge b-ok">ЛЕГКО</span></h3>
+    <p>Заходишь в репозиторий на GitHub, открываешь файл скилла (<b>SKILL.md</b> или промпт), копируешь текст и вставляешь прямо в чат на <a href="https://claude.ai">claude.ai</a>. Технических навыков ноль. Так работает большинство маркетинг- и контент-скиллов из этого списка.</p>
+  </div>
+  <div class="note">
+    <h3>② Через Claude Code (следующий уровень) — <span class="badge b-adv">НУЖЕН CLAUDE CODE</span></h3>
+    <p>Часть скиллов ставится как плагин через терминал (<b>npx</b>, git). Это для тех, кто готов поставить CLI. В списке такие помечены — если ты не технарь, начинай со способа №1.</p>
+  </div>
+  <div class="note">
+    <h3>Метки сложности в списке</h3>
+    <p class="legend">
+      <span class="badge b-ok">ЛЕГКО</span> копируешь промпт в чат &nbsp;
+      <span class="badge b-mid">СРЕДНЕ</span> положить файл в проект &nbsp;
+      <span class="badge b-adv">НУЖЕН CLAUDE CODE</span> через терминал
+    </p>
+  </div>
+  <div class="note">
+    <h3>Что такое «скилл»</h3>
+    <p>Скилл — это готовая инструкция-навык для Claude: «умей делать вот это вот так». Ставишь один раз — и Claude выполняет задачу по проверенному сценарию, а не как придётся.</p>
+  </div>
+</section>
+
+<!-- БИБЛИОТЕКА ССЫЛОК -->
+<section class="page">
+  <div class="seq">// БИБЛИОТЕКА · GITHUB</div>
+  <h2 class="section">Маркетинг и <span class="blue">копирайтинг</span></h2>
+  <p class="section__sub">лендинги, реклама, email, SEO, контент-стратегия</p>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">marketingskills</span><span class="repo__stars">★ ~32 000</span></div>
+      <div class="repo__desc">50+ скиллов: CRO, копирайтинг, SEO, аналитика, реклама, growth. «Золотой стандарт» маркетинг-набора.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для маркетологов и предпринимателей</span></div>
+      <a class="repo__url" href="https://github.com/coreyhaines31/marketingskills">github.com/coreyhaines31/marketingskills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">marketing-skills</span><span class="repo__stars">★ ~580</span></div>
+      <div class="repo__desc">160+ скиллов: SEO, контент, 40+ типов страниц, платная реклама, каналы. Шире, чем у Haines.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для маркетологов</span></div>
+      <a class="repo__url" href="https://github.com/kostja94/marketing-skills">github.com/kostja94/marketing-skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">openclaudia-skills</span><span class="repo__stars">★ ~450</span></div>
+      <div class="repo__desc">34 маркетинговых скилла: SEO, контент, email, реклама, аналитика. Компактный и чистый.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для экспертов-одиночек</span></div>
+      <a class="repo__url" href="https://github.com/OpenClaudia/openclaudia-skills">github.com/OpenClaudia/openclaudia-skills</a>
+    </div>
+  </div>
+
+  <div class="cat" style="margin-top:18px">CONTENT · SMM <span class="n">— посты, карусели, заголовки</span></div>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">social-media-skills</span><span class="repo__stars">★ ~1 380</span></div>
+      <div class="repo__desc">Контент-система блогера с 350k+ подписчиков: «сделай карусель», «напиши пост» под LinkedIn, Instagram, X, YouTube.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для SMM и личных брендов</span></div>
+      <a class="repo__url" href="https://github.com/charlie947/social-media-skills">github.com/charlie947/social-media-skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">threads-carousel-claude-skill</span><span class="repo__stars">★ ~56</span></div>
+      <div class="repo__desc">Превращает текст в визуальные карусели-картинки для Threads/Instagram/TikTok.</div>
+      <div class="repo__meta"><span class="badge b-adv">НУЖЕН CLAUDE CODE</span><span class="repo__who">рендерит картинки локально</span></div>
+      <a class="repo__url" href="https://github.com/itchernetski/threads-carousel-claude-skill">github.com/itchernetski/threads-carousel-claude-skill</a>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="seq">// БИБЛИОТЕКА · GITHUB</div>
+  <h2 class="section">Дизайн и <span class="blue">лендинги</span></h2>
+  <p class="section__sub">внешний вид страниц без дизайнера</p>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">awesome-design-md</span><span class="repo__stars">★ ~87 800</span></div>
+      <div class="repo__desc">Готовые DESIGN.md по брендам (Stripe, Apple, Figma, Tesla, Claude…). Кидаешь файл — Claude рисует UI в этом стиле.</div>
+      <div class="repo__meta"><span class="badge b-mid">СРЕДНЕ</span><span class="repo__who">для лендингов и сайтов</span></div>
+      <a class="repo__url" href="https://github.com/VoltAgent/awesome-design-md">github.com/VoltAgent/awesome-design-md</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">taste-skill</span><span class="repo__stars">★ ~33 800</span></div>
+      <div class="repo__desc">«Анти-слоп»: убирает ИИшный генеричный вид интерфейсов — типографика, отступы, вёрстка.</div>
+      <div class="repo__meta"><span class="badge b-mid">СРЕДНЕ</span><span class="repo__who">чтобы лендинг не выглядел шаблонно</span></div>
+      <a class="repo__url" href="https://github.com/Leonxlnx/taste-skill">github.com/Leonxlnx/taste-skill</a>
+    </div>
+  </div>
+
+  <div class="cat" style="margin-top:18px">PROMPT · ИНЖИНИРИНГ <span class="n">— как заставить Claude понимать с первого раза</span></div>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">prompt-master</span><span class="repo__stars">★ ~8 900</span></div>
+      <div class="repo__desc">Скилл, который пишет точные промпты за тебя под любой ИИ-инструмент. Спасение для новичков.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для всех</span></div>
+      <a class="repo__url" href="https://github.com/nidhinjs/prompt-master">github.com/nidhinjs/prompt-master</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">awesome-claude-prompts</span><span class="repo__stars">★ ~5 200</span></div>
+      <div class="repo__desc">Большая коллекция готовых промптов для Claude — бери и адаптируй под себя.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для маркетологов и экспертов</span></div>
+      <a class="repo__url" href="https://github.com/langgptai/awesome-claude-prompts">github.com/langgptai/awesome-claude-prompts</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">prompt-eng-interactive-tutorial</span><span class="repo__stars">★ ~36 200</span></div>
+      <div class="repo__desc">Официальный учебник Anthropic по промптам. Не скилл, а обучение — золотой стандарт.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">кто хочет научиться основам</span></div>
+      <a class="repo__url" href="https://github.com/anthropics/prompt-eng-interactive-tutorial">github.com/anthropics/prompt-eng-interactive-tutorial</a>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="seq">// БИБЛИОТЕКА · GITHUB</div>
+  <h2 class="section">Большие <span class="blue">каталоги</span> скиллов</h2>
+  <p class="section__sub">карта местности — чтобы найти что угодно под свою задачу</p>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">anthropics/skills</span><span class="repo__stars">★ ~146 900</span></div>
+      <div class="repo__desc">Официальный репозиторий Agent Skills от Anthropic: рабочие скиллы для документов (pdf, docx, pptx, xlsx) и примеры. Максимальная авторитетность.</div>
+      <div class="repo__meta"><span class="badge b-adv">НУЖЕН CLAUDE CODE</span><span class="repo__who">первоисточник, читается легко</span></div>
+      <a class="repo__url" href="https://github.com/anthropics/skills">github.com/anthropics/skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">awesome-claude-skills</span><span class="repo__stars">★ ~63 400</span></div>
+      <div class="repo__desc">Большой курируемый каталог Claude-скиллов и инструментов по категориям.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">навигация для всех</span></div>
+      <a class="repo__url" href="https://github.com/ComposioHQ/awesome-claude-skills">github.com/ComposioHQ/awesome-claude-skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">awesome-agent-skills</span><span class="repo__stars">★ ~24 300</span></div>
+      <div class="repo__desc">1000+ агентских скиллов от официальных команд и сообщества. Самый объёмный каталог.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">навигация для всех</span></div>
+      <a class="repo__url" href="https://github.com/VoltAgent/awesome-agent-skills">github.com/VoltAgent/awesome-agent-skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">alirezarezvani/claude-skills</span><span class="repo__stars">★ ~17 300</span></div>
+      <div class="repo__desc">337 скиллов: инжиниринг, маркетинг, продукт, комплаенс, advisory, ресёрч, бизнес-операции.</div>
+      <div class="repo__meta"><span class="badge b-ok">ЛЕГКО</span><span class="repo__who">для экспертов и предпринимателей</span></div>
+      <a class="repo__url" href="https://github.com/alirezarezvani/claude-skills">github.com/alirezarezvani/claude-skills</a>
+    </div>
+  </div>
+
+  <div class="cat" style="margin-top:18px">ДОКУМЕНТЫ · АВТОМАТИЗАЦИЯ <span class="n">— Excel, PDF, Word, отчёты</span></div>
+  <div class="grid">
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">claude-office-skills</span><span class="repo__stars">★ ~720</span></div>
+      <div class="repo__desc">Скиллы для офисных документов: PPTX, DOCX, XLSX, PDF с автоматизацией.</div>
+      <div class="repo__meta"><span class="badge b-mid">СРЕДНЕ</span><span class="repo__who">юристам, коучам, отчётникам</span></div>
+      <a class="repo__url" href="https://github.com/tfriedel/claude-office-skills">github.com/tfriedel/claude-office-skills</a>
+    </div>
+    <div class="repo">
+      <div class="repo__top"><span class="repo__name">claude-cookbooks</span><span class="repo__stars">★ ~45 000</span></div>
+      <div class="repo__desc">Официальные рецепты Anthropic, включая скиллы и ресёрч-агентов. Проверенные паттерны.</div>
+      <div class="repo__meta"><span class="badge b-mid">СРЕДНЕ</span><span class="repo__who">кому нужны надёжные шаблоны</span></div>
+      <a class="repo__url" href="https://github.com/anthropics/claude-cookbooks">github.com/anthropics/claude-cookbooks</a>
+    </div>
+  </div>
+</section>
+
+<!-- НАШИ ОРИГИНАЛЫ -->
+<section class="page">
+  <div class="seq">// ТОЛЬКО У НАС</div>
+  <h2 class="section">Наши <span class="blue">оригинальные</span> скиллы</h2>
+  <p class="section__sub">этого нет на GitHub — написано под РФ-аудиторию. Копируешь текст в чат или в инструкцию проекта</p>
+
+  <div class="mine">
+    <span class="tag">ФЛАГМАН</span>
+    <h3>Контент твоим голосом</h3>
+    <div class="what">Учится на твоих текстах и пишет так, будто это писал(а) ты, а не нейросеть.</div>
+    <pre>Ты пишешь тексты голосом автора, на чьих примерах обучен(а). Задача — не «хорошо написать», а написать ТАК, КАК ПИШЕТ ОН/ОНА.
+
+ПРАВИЛА:
+1. Изучи образцы автора: длину фраз, ритм, любимые слова, как начинает и заканчивает.
+2. Копируй интонацию, а не темы. Структуру речи, а не фразы.
+3. Запрещён канцелярит: «является», «позволяет», «в современных реалиях».
+4. Запрещены инфобиз-штампы: «прокачай», «масштабируй», «раскрой потенциал».
+5. Ритм рваный: чередуй длинные и короткие предложения.
+6. Не приглаживай. Резкий автор — будь резким.
+
+ОТВЕТ: сначала готовый текст, потом «Альтернативный хук:». Не хватает вводных — задай 1 вопрос.</pre>
+  </div>
+
+  <div class="mine">
+    <span class="tag">ОРИГИНАЛ</span>
+    <h3>Анти-ИИ</h3>
+    <div class="what">Любой текст чистит от канцелярита, штампов и нейросетевого ритма.</div>
+    <pre>Ты — финальный редактор-«антибот». Любой текст делаешь человеческим, сохраняя смысл и факты.
+
+ЗАМЕНЫ: «является» → глагол/убрать · «позволяет» → «помогает/даёт» · «представляет собой» → «это» · «в современных реалиях» → убрать · «прокачай/масштабируй» → по-человечески.
+
+РИТМ: дроби длинные гладкие предложения, вставляй короткие; убирай парад тире и симметричных списков; абзацы разной длины; минус «стоит отметить», «важно понимать», «таким образом».
+
+Не добавляй смысл, которого не было. Верни только переписанный текст.</pre>
+  </div>
+</section>
+
+<section class="page">
+  <div class="seq">// ТОЛЬКО У НАС · ПРОДОЛЖЕНИЕ</div>
+  <h2 class="section">Ещё два <span class="blue">оригинала</span></h2>
+  <p class="section__sub">копируешь текст в чат или в инструкцию проекта</p>
+
+  <div class="mine">
+    <span class="tag">ОРИГИНАЛ</span>
+    <h3>Эксперт-распаковщик</h3>
+    <div class="what">Claude интервьюирует тебя и достаёт из головы то, что ты не можешь сформулировать.</div>
+    <pre>Ты — интервьюер-распаковщик. Достаёшь из эксперта смыслы, кейсы и формулировки, которые он сам не видит.
+
+ПРАВИЛА: задавай по ОДНОМУ вопросу за раз; цепляйся за ответы и копай глубже («результат в цифрах?»); доставай конкретику и истории клиентов; замечай штампы и проси «по-простому, своими словами?»; веди 7–12 вопросов.
+
+ФИНАЛ: собери главные смыслы тезисами + сильные цитаты дословно + кейсы + готовую структуру (пост/статья/лендинг). Начни с вопроса: «О чём распаковываемся и для чего нужен текст?»</pre>
+  </div>
+
+  <div class="mine">
+    <span class="tag">ОРИГИНАЛ · ПРОМПТ</span>
+    <h3>Распакуй кашу</h3>
+    <div class="what">Диктуешь голосом поток мыслей — получаешь чистый структурный текст.</div>
+    <pre>Ты — редактор, который слышит живую мысль и собирает её в текст, не убивая голос автора.
+
+СЫРОЙ ПОТОК: [вставь расшифровку голосового]
+
+1. Найди главную мысль (несколько — выбери одну сильную).
+2. Собери в формате: [пост / письмо / раздел статьи].
+3. Сохрани мои слова и интонацию, не делай гладко-нейтрально.
+4. Длина: [1200 знаков]. В конце — 2 варианта первого предложения.
+Не добавляй того, чего я не говорил(а).</pre>
+  </div>
+</section>
+
+<!-- ССЫЛКИ -->
+<section class="page">
+  <div class="seq">// ДАЛЬШЕ</div>
+  <h2 class="section">Куда идти <span class="blue">дальше</span></h2>
+  <p class="section__sub">всё кликабельно</p>
+  <div class="links">
+    <div class="linkcard"><h3>Открыть Claude</h3><p>Где живут все эти скиллы и промпты</p><a href="https://claude.ai">https://claude.ai</a></div>
+    <div class="linkcard"><h3>Telegram-канал</h3><p>Вопросы, апдейты арсенала, разборы</p><a href="https://t.me/+YHJsLx_lR0xlM2Qy">https://t.me/+YHJsLx_lR0xlM2Qy</a></div>
+  </div>
+  <div class="endbrand">СОБРАНО НА <b>CLAUDE</b> · АМ ЛАБС<br>© 2026</div>
+</section>
+
+</body>
+</html>
