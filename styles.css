@@ -576,7 +576,7 @@ body::before{
 .footer__legal{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--faint);line-height:1.7}
 .footer__col h4{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint);margin-bottom:16px;font-weight:500}
-.footer__col a{display:block;color:var(--dim);font-size:15px;padding:5px 0;transition:color .2s,transform .2s}
+.footer__col a{display:block;color:var(--dim);font-size:15px;padding:5px 0;transition:color .2s,transform .2s;-webkit-hyphens:none;hyphens:none}
 .footer__col a:hover{color:var(--accent);transform:translateX(3px)}
 .footer__bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
   margin-top:48px;padding-top:22px;border-top:1px solid var(--line);
