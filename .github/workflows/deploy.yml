@@ -18,7 +18,7 @@ jobs:
         with:
           host: ${{ secrets.BEGET_HOST }}
           username: ${{ secrets.BEGET_USER }}
-          password: ${{ secrets.BEGET_PASSWORD }}
+          key: ${{ secrets.BEGET_SSH_KEY }}
           port: ${{ secrets.BEGET_PORT }}
           script: |
             cd ~/jarvis.arinamikhalna.ru/public_html
