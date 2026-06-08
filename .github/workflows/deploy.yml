@@ -1,0 +1,27 @@
+name: Deploy to Beget
+
+# Автодеплой: при каждом пуше в main GitHub заходит по SSH на Beget
+# и обновляет файлы сайта (git fetch + reset на свежий коммит).
+# config.php (секрет Robokassa) не трогается — он untracked и reset его не сносит.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}   # можно запустить вручную из вкладки Actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull latest on Beget via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.BEGET_HOST }}
+          username: ${{ secrets.BEGET_USER }}
+          password: ${{ secrets.BEGET_PASSWORD }}
+          port: ${{ secrets.BEGET_PORT }}
+          script: |
+            cd ~/jarvis.arinamikhalna.ru/public_html
+            git fetch origin main
+            git reset --hard origin/main
+            echo "Deployed commit: $(git rev-parse --short HEAD)"
