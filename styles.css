@@ -216,8 +216,8 @@ body::before{
 .hero__visual.has-photo .hero__smoke{display:none}
 @media(max-width:900px){.hero__visual{min-height:48svh}
   /* мягкое размытие краёв героя на мобиле — фигура растворяется в фоне */
-  .hero__photo{-webkit-mask-image:radial-gradient(116% 80% at 50% 40%, #000 48%, transparent 90%);
-               mask-image:radial-gradient(116% 80% at 50% 40%, #000 48%, transparent 90%)}}
+  .hero__photo{-webkit-mask-image:radial-gradient(108% 58% at 50% 34%, #000 40%, transparent 82%);
+               mask-image:radial-gradient(108% 58% at 50% 34%, #000 40%, transparent 82%)}}
 .herosuit{position:relative;z-index:2;width:min(100%,440px);height:auto;
   filter:drop-shadow(0 0 46px color-mix(in srgb,var(--accent) 45%,transparent));animation:floaty 6s ease-in-out infinite}
 @keyframes floaty{50%{transform:translateY(-12px)}}
