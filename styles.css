@@ -100,6 +100,9 @@ body::before{
   align-items:center;padding:14px clamp(16px,4vw,48px) 14px clamp(60px,5vw,72px);font-family:"JetBrains Mono",monospace;
   background:rgba(7,11,20,.45);backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
   border-bottom:1px solid var(--line);box-shadow:0 14px 40px -28px rgba(0,0,0,.9)}
+/* во встроенном браузере Telegram плашка не липкая (absolute): иначе fixed «висит» под его панелью.
+   В обычных браузерах остаётся fixed (липкой). */
+html.is-tg .topbar{position:absolute}
 .topbar__brand{font-family:"JetBrains Mono",monospace;font-weight:700;letter-spacing:.14em;font-size:14px}
 .topbar__brand span{font-family:"JetBrains Mono",monospace;color:var(--dim);font-weight:400;font-size:12px;margin-left:8px;letter-spacing:.04em}
 .topbar__pill{display:inline-flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;font-size:12px;

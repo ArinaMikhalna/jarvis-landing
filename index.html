@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<script>/* Определяем встроенный браузер Telegram — там плашку делаем не липкой (см. html.is-tg .topbar) */
+(function(){try{if(window.TelegramWebviewProxy||window.TelegramWebviewProxyProto||window.TelegramWebview||/Telegram/i.test(navigator.userAgent)){document.documentElement.classList.add('is-tg');}}catch(e){}})();</script>
 <title>Твой личный ДЖАРВИС за вечер — курс по экосистеме Claude</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="favicon.svg" />
@@ -23,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260610g" />
+<link rel="stylesheet" href="styles.css?v=20260610h" />
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -64,7 +66,7 @@
 <!-- ============ 00 · BOOT-UP ============ -->
 <div class="boot" id="boot">
   <div class="boot__inner">
-    <div class="boot__brand">АМ ЛАБС <span>// ДЖАРВИС v1.2</span></div>
+    <div class="boot__brand">АМ ЛАБС <span>// ДЖАРВИС v1.3</span></div>
     <div class="boot__title">ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ</div>
     <div class="boot__bar"><span class="boot__fill" id="bootFill"></span></div>
     <div class="boot__pct"><span id="bootPct">0</span>% ▸ 100%</div>
@@ -802,6 +804,6 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="script.js?v=20260610g"></script>
+<script src="script.js?v=20260610h"></script>
 </body>
 </html>
