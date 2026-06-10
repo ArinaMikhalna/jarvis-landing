@@ -785,3 +785,13 @@ body::before{
   .lead,.hero__sub,.who__card p,.who__card li,.lesson p,.ru__steps li,
   .notfit__list li,.arsenal__list li,.arsenal__sub,.faq__item p,.faq__item summary,.plan__list li{text-wrap:pretty}
 }
+
+/* Планшет (761–900px): вертикальная рельса уже скрыта (≤900px),
+   поэтому убираем «рельсовый» отступ слева и центрируем контент симметрично.
+   Стоит в конце файла, чтобы перебить базовые .section/.assembly/.footer/.ctaband */
+@media(min-width:761px) and (max-width:900px){
+  .section{padding-left:clamp(28px,4vw,48px);padding-right:clamp(28px,4vw,48px)}
+  .assembly{padding-left:0}
+  .footer{padding-left:clamp(28px,4vw,48px);padding-right:clamp(28px,4vw,48px)}
+  .ctaband{padding-left:clamp(28px,4vw,48px);padding-right:clamp(28px,4vw,48px)}
+}
