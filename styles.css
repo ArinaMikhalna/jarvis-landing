@@ -103,8 +103,9 @@ body::before{
 .topbar__pill:hover{transform:translateY(-1px);box-shadow:0 0 42px -4px var(--accent)}
 .topbar__pill i{width:8px;height:8px;border-radius:50%;background:#02040a;box-shadow:0 0 0 3px color-mix(in srgb,#02040a 25%,transparent);animation:pulse 1.6s ease-in-out infinite}
 @media(max-width:560px){
-  /* на мобиле делаем фон плашки непрозрачным, чтобы сквозь неё не просвечивал сайт */
-  .topbar{padding:14px 16px;background:rgba(7,11,20,.98)}
+  /* на мобиле делаем фон плашки непрозрачным, чтобы сквозь неё не просвечивал сайт;
+     padding-top с safe-area — чтобы контент не лез под чёлку/панель, а фон заполнял верх */
+  .topbar{padding:max(14px,env(safe-area-inset-top)) 16px 14px;background:rgba(7,11,20,.98)}
   /* перекрываем зону НАД плашкой (за верхней панелью встроенного браузера Telegram), чтобы туда не лез герой */
   .topbar::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:100vh;background:inherit;pointer-events:none}
   .topbar__brand{font-size:12px;letter-spacing:.1em}
