@@ -10,7 +10,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ---------- НАСТРОЙКА: дата повышения цены (ЗАМЕНИ под себя) ---------- */
-  var PRICE_RAISE_DATE = new Date("2026-06-15T23:59:59");
+  var PRICE_RAISE_DATE = new Date("2026-06-18T23:59:59");
 
   /* ---------- ЕДИНЫЙ ОБРАБОТЧИК СКРОЛЛА (один проход на кадр) ---------- */
   var scrollFns = [], ticking = false;
