@@ -76,8 +76,10 @@ body::before{
 @media(max-width:900px){.rail{display:none}}
 
 /* -------- BOOT -------- */
-/* inset:-140px — перекрываем с запасом за панели встроенного браузера Telegram (сверху и снизу), чтобы герой не просвечивал */
-.boot{position:fixed;inset:-140px;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
+/* Анкер сверху + высота большого вьюпорта (100lvh): на iOS такой элемент перекрывает
+   и зону под чёлкой сверху (через viewport-fit=cover), и зону за нижней панелью браузера.
+   НЕ задаём bottom — иначе высота игнорируется и низ обрезается. */
+.boot{position:fixed;top:0;left:0;right:0;height:100vh;height:100lvh;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
 .boot.is-done{opacity:0;visibility:hidden}
 .boot__inner{width:min(520px,84vw);text-align:center;font-family:"JetBrains Mono",monospace}
 .boot__brand{color:var(--accent);letter-spacing:.2em;font-size:13px;font-weight:700}
