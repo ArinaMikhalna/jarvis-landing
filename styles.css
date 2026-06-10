@@ -537,6 +537,7 @@ body::before{
 .plan__list li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
 .plan .btn{width:100%}
 .plan__trust{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint);text-align:center;margin-top:12px}
+.price__paynote{margin-top:18px;text-align:center;font-style:italic;font-size:13px;line-height:1.45;color:var(--dim)}
 .guarantee{display:flex;gap:20px;align-items:center;margin-top:34px;border:1px solid var(--line);border-radius:16px;padding:24px 28px;background:var(--panel)}
 .guarantee__shield{font-size:42px;filter:drop-shadow(0 0 16px var(--accent))}
 .guarantee h3{font-family:"Unbounded",sans-serif;font-size:20px;font-weight:600;margin-bottom:6px}
