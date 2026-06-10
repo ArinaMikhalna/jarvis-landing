@@ -76,7 +76,8 @@ body::before{
 @media(max-width:900px){.rail{display:none}}
 
 /* -------- BOOT -------- */
-.boot{position:fixed;inset:0;height:100vh;height:100lvh;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
+/* inset:-140px — перекрываем с запасом за панели встроенного браузера Telegram (сверху и снизу), чтобы герой не просвечивал */
+.boot{position:fixed;inset:-140px;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
 .boot.is-done{opacity:0;visibility:hidden}
 .boot__inner{width:min(520px,84vw);text-align:center;font-family:"JetBrains Mono",monospace}
 .boot__brand{color:var(--accent);letter-spacing:.2em;font-size:13px;font-weight:700}
@@ -102,8 +103,10 @@ body::before{
 .topbar__pill:hover{transform:translateY(-1px);box-shadow:0 0 42px -4px var(--accent)}
 .topbar__pill i{width:8px;height:8px;border-radius:50%;background:#02040a;box-shadow:0 0 0 3px color-mix(in srgb,#02040a 25%,transparent);animation:pulse 1.6s ease-in-out infinite}
 @media(max-width:560px){
-  /* на мобиле делаем фон плашки почти непрозрачным, чтобы сквозь неё не просвечивал сайт */
+  /* на мобиле делаем фон плашки непрозрачным, чтобы сквозь неё не просвечивал сайт */
   .topbar{padding:14px 16px;background:rgba(7,11,20,.98)}
+  /* перекрываем зону НАД плашкой (за верхней панелью встроенного браузера Telegram), чтобы туда не лез герой */
+  .topbar::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:100vh;background:inherit;pointer-events:none}
   .topbar__brand{font-size:12px;letter-spacing:.1em}
   .topbar__brand span{display:none}      /* убираем подпись, чтобы не налезала на кнопку */
 }
