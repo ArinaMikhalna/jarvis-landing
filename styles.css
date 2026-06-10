@@ -76,10 +76,13 @@ body::before{
 @media(max-width:900px){.rail{display:none}}
 
 /* -------- BOOT -------- */
-/* position:absolute (а не fixed): fixed на iOS прижат к ВИДИМОЙ области (между панелями браузера)
-   и не лезет за них. absolute раскладывается в «большом» макете — как картинка героя — и закрывает
-   зоны за верхней и нижней панелями. height:100lvh — высота полного экрана. */
+/* position:absolute (не fixed): fixed на iOS прижат к видимой области между панелями браузера.
+   absolute раскладывается в общем макете. Контент по центру (100lvh), а псевдоэлементы ::before/::after
+   продлевают тёмный фон ВВЕРХ и ВНИЗ за пределы экрана — закрывают зоны за панелями браузера. */
 .boot{position:absolute;top:0;left:0;right:0;height:100vh;height:100lvh;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
+.boot::before,.boot::after{content:"";position:absolute;left:0;right:0;height:80vh;background:#02040a;pointer-events:none}
+.boot::before{bottom:100%}
+.boot::after{top:100%}
 .boot.is-done{opacity:0;visibility:hidden}
 .boot__inner{width:min(520px,84vw);text-align:center;font-family:"JetBrains Mono",monospace}
 .boot__brand{color:var(--accent);letter-spacing:.2em;font-size:13px;font-weight:700}
