@@ -1,17 +1,56 @@
-# ── Кэширование ──────────────────────────────────────────────
-# HTML всегда свежий: иначе встроенные браузеры (Telegram и пр.)
-# кэшируют страницу и не видят правок / новых версий CSS/JS.
+# ─────────────────────────────────────────────────────────────
+#  Безопасность статического сайта jarvis.arinamikhalna.ru
+# ─────────────────────────────────────────────────────────────
+
+# Запрет листинга директорий (нельзя просматривать содержимое папок)
+Options -Indexes
+ServerSignature Off
+DirectoryIndex index.html
+
+# Закрыть от web-доступа dotfiles и служебные папки (.git, .github, .htaccess и т.п.),
+# кроме .well-known (нужна для SSL/верификаций)
+RedirectMatch 404 (?i)/\.(?!well-known)
+RedirectMatch 404 (?i)/(_backup|api|og)(/|$)
+
+# Закрыть служебные расширения (исходники, заметки, конфиги)
+<FilesMatch "(?i)\.(env|ini|sample|md|markdown|txt|yml|yaml|sh|bash|bak|backup|log|psd|sql|dist)$">
+  Require all denied
+</FilesMatch>
+
+# Конфиг Robokassa с секретом — никогда не отдавать наружу
+<Files "config.php">
+  Require all denied
+</Files>
+<Files "config.sample.php">
+  Require all denied
+</Files>
+
+# robots.txt оставить доступным, если появится
+<Files "robots.txt">
+  Require all granted
+</Files>
+
 <IfModule mod_headers.c>
+  # ── Кэширование ──
+  # HTML всегда свежий (иначе встроенные браузеры кэшируют и не видят правок)
   <FilesMatch "\.(html|htm)$">
     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
     Header set Pragma "no-cache"
     Header set Expires "0"
   </FilesMatch>
-  # Статика версионируется через ?v=… — её можно кэшировать надолго
-  <FilesMatch "\.(css|js|png|jpe?g|gif|svg|webp|ico|woff2?|ttf|eot)$">
+  # Статика версионируется через ?v=… — кэшируем надолго
+  <FilesMatch "\.(css|js|png|jpe?g|gif|svg|webp|ico|woff2?|ttf|eot|pdf)$">
     Header set Cache-Control "public, max-age=31536000"
   </FilesMatch>
-</IfModule>
 
-# Корень "/" отдаёт index.html
-DirectoryIndex index.html
+  # ── Заголовки безопасности ──
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), usb=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header unset X-Powered-By
+  # CSP: разрешаем только реально используемые источники (шрифты, GSAP, Lenis, Я.Метрика),
+  # запрещаем встраивание сайта в чужие фреймы (анти-кликджекинг) и чужие формы.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://mc.yandex.ru; frame-src https://mc.yandex.ru; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://auth.robokassa.ru https://t.me"
+</IfModule>
