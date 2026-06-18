@@ -9,9 +9,6 @@
   var $  = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  /* ---------- НАСТРОЙКА: дата повышения цены (ЗАМЕНИ под себя) ---------- */
-  var PRICE_RAISE_DATE = new Date("2026-06-18T23:59:59");
-
   /* ---------- ЕДИНЫЙ ОБРАБОТЧИК СКРОЛЛА (один проход на кадр) ---------- */
   var scrollFns = [], ticking = false;
   function runScroll() { ticking = false; for (var i = 0; i < scrollFns.length; i++) scrollFns[i](); }
@@ -223,7 +220,7 @@
     var rateEl = $("#rate"), hoursEl = $("#hours"), rateR = $("#rateR"), hoursR = $("#hoursR");
     var mEl = $("#lossMonth"), yEl = $("#lossYear"), pbEl = $("#payback"), ring = $("#ring");
     if (!rateEl) return;
-    var PRICE = 990, nf = new Intl.NumberFormat("ru-RU"); // окупаемость считаем по стартовой цене курса
+    var PRICE = 1490, nf = new Intl.NumberFormat("ru-RU"); // окупаемость считаем по стартовой цене курса
     var perSec = 0, anchorMs = 0, lostAtAnchor = 0, yearBase = 0;
     function days(n) {
       var a = Math.abs(n) % 100, b = a % 10;
@@ -262,20 +259,6 @@
       else yEl.textContent = "0 ₽";
     }
     fill(rateR); fill(hoursR); recompute(); tick(); setInterval(tick, 1000);
-  })();
-
-  /* ---------- ТАЙМЕР ---------- */
-  (function timer() {
-    var el = $("#timer"); if (!el) return;
-    function pad(n) { return (n < 10 ? "0" : "") + n; }
-    function upd() {
-      var diff = PRICE_RAISE_DATE - new Date();
-      if (diff <= 0) { el.textContent = "цена повышена"; return; }
-      var s = Math.floor(diff / 1000), d = Math.floor(s / 86400); s -= d * 86400;
-      var h = Math.floor(s / 3600); s -= h * 3600; var m = Math.floor(s / 60); s -= m * 60;
-      el.textContent = d + "д " + pad(h) + "ч " + pad(m) + "м " + pad(s) + "с";
-    }
-    upd(); setInterval(upd, 1000);
   })();
 
   /* ---------- 3D-ДЕТАЛИ КОСТЮМА: подхват PNG, если есть ---------- */
