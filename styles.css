@@ -492,6 +492,8 @@ html.is-tg .topbar{position:absolute}
 .case p{color:var(--dim);font-size:14px;margin-top:12px}
 /* мобилка: крупные цифры не переносятся по слогам и не ломаются */
 @media(max-width:600px){.case__num{font-size:19px;-webkit-hyphens:none;hyphens:none;overflow-wrap:normal;word-break:keep-all}}
+/* блок «Хочешь пруф?»: резервируем под число высоту 2 строк, чтобы подписи (в т.ч. «собрано на Claude») были на одном уровне */
+@media(max-width:600px){.meta__stats .case__num{min-height:2em}}
 .reviews{margin-top:120px}
 .reviews__title{font-family:"Unbounded",sans-serif;font-size:clamp(28px,4.6vw,58px);font-weight:800;line-height:1.04;letter-spacing:-.01em}
 .reviews__title .accent{color:var(--accent)}
