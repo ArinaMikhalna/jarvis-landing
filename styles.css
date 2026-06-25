@@ -796,9 +796,9 @@ html.is-tg .topbar{position:absolute}
   [class*=console]{text-align:left}
 }
 
-/* нормальный перенос текста на мобиле (переносы по слогам + баланс строк) */
+/* мобильный перенос текста: БЕЗ переносов по слогам (в рус. выглядит плохо) + баланс/pretty */
 @media(max-width:600px){
-  body{-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
+  body{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:break-word;text-wrap:pretty}
   .h2,.hero__title,.reviews__title,.final__title,.ru__title,.who__card h3,.lesson h3,.plan__name{
     -webkit-hyphens:manual;hyphens:manual;text-wrap:balance}
   .lead,.hero__sub,.who__card p,.who__card li,.lesson p,.ru__steps li,
@@ -813,4 +813,10 @@ html.is-tg .topbar{position:absolute}
   .assembly{padding-left:0}
   .footer{padding-left:clamp(28px,4vw,48px);padding-right:clamp(28px,4vw,48px)}
   .ctaband{padding-left:clamp(28px,4vw,48px);padding-right:clamp(28px,4vw,48px)}
+}
+
+/* Мобилка (≤760px): подвал симметрично (базовый .footer с «рельсовым» отступом слева
+   стоит ниже мобильного правила и перебивал его → центрировался вправо). Чиним в конце файла. */
+@media(max-width:760px){
+  .footer{padding:34px 18px 24px 18px}
 }
