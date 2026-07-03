@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260626b" />
+<link rel="stylesheet" href="styles.css?v=20260626c" />
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -109,7 +109,7 @@
       <!-- ОБРАЗ: оригинальный броне-бюст (заменим на 3D-рендер дизайнера) -->
       <div class="hero__visual reveal" aria-hidden="true">
         <span class="hero__glow"></span>
-        <img class="hero__photo" src="suit/hero.png" alt="" onerror="this.remove()" onload="this.closest('.hero__visual').classList.add('has-photo')" />
+        <img class="hero__photo" src="suit/hero.webp" alt="" fetchpriority="high" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/hero.png'}" onload="this.closest('.hero__visual').classList.add('has-photo')" />
         <div class="hero__ph"><span>МЕСТО ПОД ПЕРСОНАЖА</span><b>положи&nbsp;→ suit/hero.png</b></div>
         <div class="hv hv--armor">
         <svg class="herosuit" viewBox="0 0 400 480" fill="none">
@@ -228,6 +228,29 @@
     </div>
   </section>
 
+  <!-- ============ ЦИТАТЫ УЧЕНИКОВ (соцпруф наверху, полные скрины — ниже) ============ -->
+  <section class="section quotes" id="quotes" data-ghost="x">
+    <div class="wrap">
+      <div class="hud-corner">// FEEDBACK LOG</div>
+      <h2 class="h2 quotes__title reveal">Что говорят ученики</h2>
+      <div class="quotes__grid">
+        <figure class="quote framed reveal">
+          <blockquote>Окупилось в&nbsp;первый же день, сам в&nbsp;шоке. КП клиенту делаю за&nbsp;20&nbsp;минут, регламент собрал за&nbsp;вечер вместо недели</blockquote>
+          <figcaption><b>Артём</b> · предприниматель</figcaption>
+        </figure>
+        <figure class="quote framed reveal">
+          <blockquote>Прошла неделя — полёт нормальный. В&nbsp;голове только два вопроса: а&nbsp;что, так можно было? И&nbsp;почему я&nbsp;не&nbsp;сделала это раньше?</blockquote>
+          <figcaption><b>Юлия</b> · психолог</figcaption>
+        </figure>
+        <figure class="quote framed reveal">
+          <blockquote>Продукт охренительный среди огромного количества скама по&nbsp;ИИ. Полночи читала канал — и&nbsp;стала 12-м покупателем</blockquote>
+          <figcaption><b>Анастасия</b> · 12-й покупатель курса</figcaption>
+        </figure>
+      </div>
+      <a class="quotes__more reveal" href="#author">Все отзывы — живыми скринами ниже ↓</a>
+    </div>
+  </section>
+
   <!-- ============ ДОСТУП ИЗ РОССИИ ============ -->
   <section class="section ru" id="ru" data-ghost="x">
     <div class="wrap ru__wrap">
@@ -244,7 +267,7 @@
         <p class="ru__note">Не отправляю искать инструкции в&nbsp;интернете. Показываю каждый шаг со&nbsp;скриншотами, повторишь с&nbsp;первого раза</p>
       </div>
       <div class="ru__img reveal" data-todo>
-        <img src="suit/ru-hero.png" alt="" class="ru__photo" onerror="this.remove()" />
+        <img src="suit/ru-hero.webp" alt="" class="ru__photo" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/ru-hero.png'}" />
         <span class="ru__imgcap">русский Железный человек<br>(кокошник + балалайка)<br><b>положи файл&nbsp;→ suit/ru-hero.png</b></span>
       </div>
     </div>
@@ -269,12 +292,12 @@
         <!-- КОСТЮМ — крупно по центру -->
         <div class="suit-wrap">
           <div class="suit-imgs" id="suitImgs">
-            <img class="part-img" data-part="5" src="suit/legs.png"    alt="" />
-            <img class="part-img" data-part="6" src="suit/boots.png"   alt="" />
-            <img class="part-img" data-part="3" src="suit/chest.png"   alt="" />
-            <img class="part-img" data-part="4" src="suit/arms.png"    alt="" />
-            <img class="part-img" data-part="1" src="suit/reactor.png" alt="" />
-            <img class="part-img" data-part="2" src="suit/helmet.png"  alt="" />
+            <img class="part-img" data-part="5" src="suit/legs.webp" loading="lazy" decoding="async"    alt="" />
+            <img class="part-img" data-part="6" src="suit/boots.webp" loading="lazy" decoding="async"   alt="" />
+            <img class="part-img" data-part="3" src="suit/chest.webp" loading="lazy" decoding="async"   alt="" />
+            <img class="part-img" data-part="4" src="suit/arms.webp" loading="lazy" decoding="async"    alt="" />
+            <img class="part-img" data-part="1" src="suit/reactor.webp" loading="lazy" decoding="async" alt="" />
+            <img class="part-img" data-part="2" src="suit/helmet.webp" loading="lazy" decoding="async"  alt="" />
           </div>
           <svg class="suit" viewBox="0 0 360 600" id="suit" aria-label="Костюм собирается из 8 уроков">
             <defs>
@@ -391,7 +414,7 @@
       <h2 class="h2 reveal">Подойдёт, если делаешь руками <span class="accent">и хочешь перестать</span></h2>
       <div class="who__grid">
         <article class="who__card framed reveal">
-          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-marketer.jpg" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-marketer.png'}" />фото · маркетолог</div>
+          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-marketer.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-marketer.jpg'}" />фото · маркетолог</div>
           <h3>Маркетологи</h3>
           <p>Инхаус или фриланс, на тебе 5 проектов разом. Тонешь в контенте, отчётах и бесконечных правках, а платят будто за один.</p>
           <ul>
@@ -402,7 +425,7 @@
           </ul>
         </article>
         <article class="who__card framed reveal">
-          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-expert.jpg" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-expert.png'}" />фото · эксперт</div>
+          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-expert.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-expert.jpg'}" />фото · эксперт</div>
           <h3>Эксперты</h3>
           <p>Коуч, психолог, нутрициолог, юрист. После клиентов нет сил на пост, а нет блога — нет и заявок.</p>
           <ul>
@@ -413,7 +436,7 @@
           </ul>
         </article>
         <article class="who__card framed reveal">
-          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-founder.jpg" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-founder.png'}" />фото · предприниматель</div>
+          <div class="who__photo" data-todo><img class="who__img" alt="" src="suit/who-founder.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/who-founder.jpg'}" />фото · предприниматель</div>
           <h3>Предприниматели</h3>
           <p>Малый и средний бизнес, команда 3–30. Текучка съедает день, нанимать людей дорого, а результат нужен сегодня.</p>
           <ul>
@@ -500,7 +523,7 @@
       <span class="author__eyebrow reveal">АВТОР КУРСА · ОПЕРАТОР ДЖАРВИСА</span>
       <div class="author__top">
         <div class="author__photo" data-todo>
-          <img src="suit/avatar.png" alt="" class="author__img" onerror="this.remove()" />
+          <img src="suit/avatar.webp" alt="" class="author__img" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/avatar.png'}" />
           <span class="author__phcap">фото Арины<br>заменить</span>
         </div>
         <div class="author__intro">
@@ -541,13 +564,13 @@
           </div>
         </div>
         <div class="reviews__row" id="reviewsRow">
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-1.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-1.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-2.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-2.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-3.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-3.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-4.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-4.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-5.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-5.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-6.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-6.jpg'}" />
-          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-7.png" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-7.jpg'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-1.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-1.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-2.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-2.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-3.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-3.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-4.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-4.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-5.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-5.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-6.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-6.png'}" />
+          <img class="tg-shot reveal" alt="Отзыв ученика" src="suit/review-7.webp" loading="lazy" decoding="async" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/review-7.png'}" />
         </div>
         <div class="reviews__mobnav" aria-hidden="true">
           <button class="reviews__arrow" type="button" aria-label="Назад" data-rev="-1">‹</button>
@@ -800,6 +823,6 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="script.js?v=20260626b"></script>
+<script src="script.js?v=20260626c"></script>
 </body>
 </html>

@@ -341,4 +341,13 @@
     }
   })();
 
+  /* ---------- ЦЕЛИ МЕТРИКИ: клик по любой кнопке оплаты (переход в TG-бота) ---------- */
+  (function payGoals() {
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="t.me/arinamikhalna_ai_bot"]') : null;
+      if (!a) return;
+      try { if (typeof ym === "function") ym(109725874, "reachGoal", "pay_click"); } catch (err) {}
+    }, true);
+  })();
+
 })();
