@@ -341,6 +341,24 @@
     }
   })();
 
+  /* ---------- ЯКОРЬ ЦЕНЫ: «окупается за N ч рутины» из ставки калькулятора ---------- */
+  (function priceAnchor() {
+    var el = $("#planAnchor"), rate = $("#rate"), rateR = $("#rateR");
+    if (!el || !rate) return;
+    var PRICE_PRO = 4990;
+    function upd() {
+      var r = parseFloat(rate.value) || 0;
+      if (r <= 0) { el.textContent = "окупается за пару часов рутины"; return; }
+      var h = PRICE_PRO / r;
+      var txt = h < 1 ? "окупается меньше чем за час рутины"
+              : "окупается за ≈ " + (h >= 10 ? Math.round(h) : (Math.round(h * 2) / 2 + "").replace(".", ",")) + " ч рутины";
+      el.textContent = txt;
+    }
+    rate.addEventListener("input", upd);
+    if (rateR) rateR.addEventListener("input", upd);
+    upd();
+  })();
+
   /* ---------- ЦЕЛИ МЕТРИКИ: клик по любой кнопке оплаты (переход в TG-бота) ---------- */
   (function payGoals() {
     document.addEventListener("click", function (e) {
