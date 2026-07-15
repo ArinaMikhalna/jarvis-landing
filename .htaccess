@@ -52,5 +52,5 @@ RedirectMatch 404 (?i)/(_backup|api|og)(/|$)
   Header unset X-Powered-By
   # CSP: разрешаем только реально используемые источники (шрифты, GSAP, Lenis, Я.Метрика),
   # запрещаем встраивание сайта в чужие фреймы (анти-кликджекинг) и чужие формы.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://mc.yandex.ru; frame-src https://mc.yandex.ru; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://auth.robokassa.ru https://t.me"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://mc.yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://mc.yandex.ru wss://mc.yandex.ru https://mc.yandex.md; frame-src https://mc.yandex.ru; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://auth.robokassa.ru https://t.me"
 </IfModule>
