@@ -359,18 +359,6 @@
     upd();
   })();
 
-  /* ---------- ВСТРОЕННЫЙ БРАУЗЕР TELEGRAM: чиним переход в бота ----------
-     Встроенный webview Telegram не умеет открывать "новые вкладки" (target="_blank") —
-     ссылка на бота там просто не срабатывает. Только внутри него убираем target/rel,
-     чтобы переход шёл в том же окне. В обычных браузерах ничего не меняем. */
-  (function fixPayLinksInTelegramWebview() {
-    if (!document.documentElement.classList.contains("is-tg")) return;
-    document.querySelectorAll('a[href*="t.me/arinamikhalna_ai_bot"]').forEach(function (a) {
-      a.removeAttribute("target");
-      a.removeAttribute("rel");
-    });
-  })();
-
   /* ---------- ЦЕЛИ МЕТРИКИ: клик по любой кнопке оплаты (переход в TG-бота) ---------- */
   (function payGoals() {
     document.addEventListener("click", function (e) {
