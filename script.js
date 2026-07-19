@@ -359,6 +359,34 @@
     upd();
   })();
 
+  /* ---------- COOKIE-СОГЛАСИЕ (152-ФЗ) ----------
+     Яндекс Метрика (включая Вебвизор) НЕ запускается, пока посетитель не нажал «Принять».
+     Выбор хранится в localStorage; сбросить можно на /cookie.html */
+  (function cookieConsent() {
+    var KEY = "jarvis_cookie_consent";
+    var banner = $("#cookieBanner");
+    if (!banner) return;
+
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+
+    // Уже согласился — Метрику запустил инлайн-скрипт в <head>, баннер не показываем
+    if (saved === "yes" || saved === "no") return;
+
+    function decide(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      if (value === "yes" && typeof window.__initMetrika === "function") window.__initMetrika();
+      banner.hidden = true;
+    }
+
+    // Показываем не мгновенно, чтобы не спорить с экраном загрузки
+    setTimeout(function () { banner.hidden = false; }, 900);
+
+    var yes = $("#cookieAccept"), no = $("#cookieDecline");
+    if (yes) yes.addEventListener("click", function () { decide("yes"); });
+    if (no) no.addEventListener("click", function () { decide("no"); });
+  })();
+
   /* ---------- ЦЕЛИ МЕТРИКИ: клик по любой кнопке оплаты (переход в TG-бота) ---------- */
   (function payGoals() {
     document.addEventListener("click", function (e) {

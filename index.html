@@ -25,10 +25,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260710b" />
+<link rel="stylesheet" href="styles.css?v=20260715a" />
 
-<!-- Yandex.Metrika counter -->
+<!-- Yandex.Metrika: загружается ТОЛЬКО после согласия на cookie (152-ФЗ).
+     Функция определена здесь, вызывается из cookieConsent() в script.js -->
 <script type="text/javascript">
+window.__initMetrika = function () {
+    if (window.__metrikaLoaded) return;
+    window.__metrikaLoaded = true;
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
@@ -37,9 +41,11 @@
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109725874', 'ym');
 
     ym(109725874, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+};
+/* Вернувшийся посетитель, который уже согласился — запускаем сразу, не дожидаясь баннера */
+try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__initMetrika(); } catch (e) {}
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/109725874" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+<!-- /Yandex.Metrika -->
 </head>
 <body>
 
@@ -814,6 +820,7 @@
       <a href="https://docs.google.com/document/d/1Vh8521w4TTzp2Q_2YWVZTKil9RN18RHyFo-DGAE9G14/preview" target="_blank" rel="noopener">Публичная оферта</a>
       <a href="https://docs.google.com/document/d/1oOvkK-MJ0acHoGRx2NdZP70O7ybWygt_/preview" target="_blank" rel="noopener">Политика конфиденциальности</a>
       <a href="https://docs.google.com/document/d/1aGxm3gf14dr3Uu4qpO849okySl3uBFH1nPGe5NXxqb8/preview" target="_blank" rel="noopener">Согласие на рассылку</a>
+      <a href="/cookie.html">Политика cookie</a>
     </nav>
   </div>
   <div class="wrap footer__bottom">
@@ -826,6 +833,20 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="script.js?v=20260710b"></script>
+
+<!-- ============ COOKIE-БАННЕР (152-ФЗ) ============ -->
+<div class="cookie" id="cookieBanner" role="dialog" aria-label="Использование файлов cookie" hidden>
+  <p class="cookie__text">
+    Мы используем файлы cookie и Яндекс&nbsp;Метрику, чтобы понимать, как посетители пользуются сайтом,
+    и делать его удобнее. Аналитика включается только&nbsp;с вашего согласия.
+    Подробнее&nbsp;— в <a href="/cookie.html">Политике cookie</a>.
+  </p>
+  <div class="cookie__btns">
+    <button type="button" class="cookie__btn" id="cookieDecline">Отклонить</button>
+    <button type="button" class="cookie__btn cookie__btn--ok" id="cookieAccept">Принять</button>
+  </div>
+</div>
+
+<script src="script.js?v=20260715a"></script>
 </body>
 </html>
