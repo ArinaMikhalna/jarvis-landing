@@ -30,6 +30,16 @@ RedirectMatch 404 (?i)/(_backup|api|og)(/|$)
   Require all granted
 </Files>
 
+# Короткие адреса юридических документов.
+# /offer обязателен: п. 1.7 самой оферты объявляет его адресом актуальной редакции.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^offer/?$   /offer.html   [L]
+  RewriteRule ^privacy/?$ /privacy.html [L]
+  RewriteRule ^consent/?$ /consent.html [L]
+  RewriteRule ^cookie/?$  /cookie.html  [L]
+</IfModule>
+
 <IfModule mod_headers.c>
   # ── Кэширование ──
   # HTML всегда свежий (иначе встроенные браузеры кэшируют и не видят правок)
