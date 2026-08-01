@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="https://jarvis.arinamikhalna.ru/og-cover-2.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css?v=20260721a" />
 
 <!-- Yandex.Metrika: загружается ТОЛЬКО после согласия на cookie (152-ФЗ).
@@ -116,6 +116,7 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
       <div class="hero__visual reveal" aria-hidden="true">
         <span class="hero__glow"></span>
         <img class="hero__photo" src="suit/hero.webp" alt="" fetchpriority="high" onerror="if(this.dataset.f){this.remove()}else{this.dataset.f=1;this.src='suit/hero.png'}" onload="this.closest('.hero__visual').classList.add('has-photo')" />
+        <div class="reactor-fx" aria-hidden="true"><i></i><b></b><u></u></div>
         <div class="hero__ph"><span>МЕСТО ПОД ПЕРСОНАЖА</span><b>положи&nbsp;→ suit/hero.png</b></div>
         <div class="hv hv--armor">
         <svg class="herosuit" viewBox="0 0 400 480" fill="none">
@@ -348,6 +349,8 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
             </g>
           </svg>
           <div class="suit-aura" data-part="7" aria-hidden="true"></div>
+          <div class="suit-flash" id="suitFlash" aria-hidden="true"></div>
+          <div class="suit-done" id="suitDone" aria-hidden="true">КОСТЮМ&nbsp;СОБРАН</div>
         </div>
 
         <!-- ИНФО: один активный урок (текст меняется по скроллу) -->
@@ -680,6 +683,7 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
           <div class="stat stat--alarm stat--feat">
             <span class="stat__label">Уже потеряно с начала года</span>
             <span class="stat__value" id="lossYear">0 ₽</span>
+            <canvas id="lossChart" aria-hidden="true"></canvas>
             <span class="stat__scan" aria-hidden="true"></span>
           </div>
           <div class="stat">

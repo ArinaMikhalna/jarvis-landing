@@ -261,6 +261,35 @@
     fill(rateR); fill(hoursR); recompute(); tick(); setInterval(tick, 1000);
   })();
 
+  /* ---------- ГРАФИК ПОТЕРЬ: линия рисуется при появлении ---------- */
+  (function lossChart() {
+    var cv = document.getElementById("lossChart"); if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext("2d"), t0 = null, started = false;
+    function draw(ts) {
+      if (t0 === null) t0 = ts;
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+      if (cv.width !== Math.round(r.width * d)) { cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); }
+      var w = r.width, h = r.height; ctx.clearRect(0, 0, w, h);
+      var p = Math.min(1, (ts - t0) / 2000), e = 1 - Math.pow(1 - p, 3);
+      ctx.strokeStyle = "rgba(255,255,255,.08)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, h - 8); ctx.lineTo(w, h - 8); ctx.stroke();
+      ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = "#EE140F";
+      var N = 50;
+      for (var i = 0; i <= N * e; i++) { var q = i / N;
+        var y = h - 8 - Math.pow(q, 1.7) * (h - 18);
+        var x = q * w; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.stroke();
+      var ex = e * w, ey = h - 8 - Math.pow(e, 1.7) * (h - 18);
+      ctx.fillStyle = "#EE140F"; ctx.beginPath(); ctx.arc(ex, ey, 3.5, 0, 7); ctx.fill();
+      if (p < 1) requestAnimationFrame(draw);
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting && !started) { started = true; requestAnimationFrame(draw); } });
+      }, { threshold: .4 }).observe(cv);
+    } else { requestAnimationFrame(draw); }
+  })();
+
   /* ---------- 3D-ДЕТАЛИ КОСТЮМА: подхват PNG, если есть ---------- */
   (function suitAssets() {
     var box = $("#suitImgs"); if (!box) return;
@@ -306,6 +335,18 @@
           el.style.transform = "translate(" + (f.x * (1 - e)) + "px," + (f.y * (1 - e)) + "px) scale(" + (f.s + (1 - f.s) * e) + ")";
         }
         el.classList.toggle("is-on", q >= .999);                      // пульс/свечение — когда деталь встала
+      }
+      // финальная вспышка: костюм полностью собран
+      var flash = document.getElementById("suitFlash"), done = document.getElementById("suitDone");
+      if (flash) {
+        var q7 = Math.min(1, Math.max(0, progress * STEPS - 6));
+        if (q7 >= 1 && !flash.__fired) {
+          flash.__fired = true;
+          flash.classList.remove("go"); void flash.offsetWidth; flash.classList.add("go");
+          done.classList.add("on");
+        } else if (q7 < .6 && flash.__fired) {
+          flash.__fired = false; done.classList.remove("on");
+        }
       }
       if (step === lastStep) return;
       lastStep = step;
