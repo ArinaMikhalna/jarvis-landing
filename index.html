@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260801c" />
+<link rel="stylesheet" href="styles.css?v=20260801d" />
 
 <!-- Yandex.Metrika: загружается ТОЛЬКО после согласия на cookie (152-ФЗ).
      Функция определена здесь, вызывается из cookieConsent() в script.js -->
@@ -281,6 +281,54 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
   </section>
 
   <!-- калькулятор перенесён ниже, к блоку цены (ROI перед покупкой) -->
+
+  <!-- ============ 03 · ПОЧЕМУ CLAUDE, А НЕ CHATGPT ============ -->
+  <section class="section whyclaude" data-ghost="03">
+    <div class="wrap">
+      <div class="hud-corner">// COMPARE · 005</div>
+      <h2 class="h2 reveal">Почему <span class="accent">Claude</span>, а не ChatGPT</h2>
+
+      <div class="duel reveal">
+        <div class="duel__head">
+          <div class="duel__side duel__side--l">ChatGPT<small>просто чат</small></div>
+          <div class="duel__x">VS</div>
+          <div class="duel__side duel__side--r">Claude<small>экосистема</small></div>
+        </div>
+
+        <div class="duel__round">
+          <div class="duel__c duel__c--l"><b>Пишет «как нейросеть»</b><p>Общие фразы, канцелярит, каждый раз объясняешь заново, кто ты.</p></div>
+          <div class="duel__mid"><i></i></div>
+          <div class="duel__c duel__c--r"><b>Пишет твоим голосом</b><p>Styles и Memory: загрузил свои тексты — и он помнит тебя от чата к чату.</p></div>
+        </div>
+
+        <div class="duel__round">
+          <div class="duel__c duel__c--l"><b>Один чат на всё</b><p>Контекст теряется, файлы пересылаешь руками, история — свалка.</p></div>
+          <div class="duel__mid"><i></i></div>
+          <div class="duel__c duel__c--r"><b>Система, а не чат</b><p>Projects под каждого клиента, Cowork разбирает файлы, Code автоматизирует.</p></div>
+        </div>
+
+        <div class="duel__round">
+          <div class="duel__c duel__c--l"><b>Код — как получится</b><p>Накидает кусок кода, но собрать из этого рабочий продукт — отдельный квест.</p></div>
+          <div class="duel__mid"><i></i></div>
+          <div class="duel__c duel__c--r"><b>Лучший для вайбкодинга</b><p>Claude Code собирает лендинги, ботов и сервисы целиком — от идеи до продукта. На нём собран этот сайт.</p></div>
+        </div>
+
+        <div class="duel__round">
+          <div class="duel__c duel__c--l"><b>Живёт в своей вкладке</b><p>Файлы — только вручную, за пределы чата не выходит.</p></div>
+          <div class="duel__mid"><i></i></div>
+          <div class="duel__c duel__c--r"><b>Работает на твоём компьютере</b><p>Cowork открывает твои папки и разбирает файлы сам, а в Chrome кликает и заполняет за тебя.</p></div>
+        </div>
+
+        <div class="duel__round">
+          <div class="duel__c duel__c--l"><b>Работает, пока ты печатаешь</b><p>Закрыл вкладку — всё остановилось.</p></div>
+          <div class="duel__mid"><i></i></div>
+          <div class="duel__c duel__c--r"><b>Работает, пока ты спишь</b><p>Агенты: ночной research рынка, утренний дайджест, авто-бриф на нового клиента.</p></div>
+        </div>
+
+        <div class="duel__meter"><div class="duel__bar"><i id="duelFill"></i></div><span>ПЕРЕВЕС · CLAUDE</span></div>
+      </div>
+    </div>
+  </section>
 
   <!-- CTA-полоса перед курсом: костюм = 8 уроков -->
   <section class="ctaband">
@@ -723,7 +771,7 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
             <li>8 уроков в правильном порядке</li>
             <li>Вход из России за 30 минут — со скриншотами</li>
             <li>Каждый шаг проверен на учениках</li>
-            <li>К полуночи — работающая система</li>
+            <li>Через 2 часа — работающая система</li>
           </ul>
         </article>
         <p class="vscourse__sign">«Я сама училась этому несколько месяцев. На курсе это — один вечер»</p>
@@ -883,6 +931,6 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
   </div>
 </div>
 
-<script src="script.js?v=20260801c" defer></script>
+<script src="script.js?v=20260801d" defer></script>
 </body>
 </html>

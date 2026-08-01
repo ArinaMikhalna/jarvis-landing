@@ -919,3 +919,40 @@ html.is-tg .topbar{position:absolute}
 .vscourse__col--win li::before{content:"▸";color:var(--accent);font-family:"JetBrains Mono",monospace;font-size:12px;flex:0 0 auto}
 .vscourse__sign{grid-column:1/-1;text-align:center;color:var(--dim);font-size:15px;font-style:italic;margin:8px 0 0}
 @media(max-width:720px){.vscourse__grid{grid-template-columns:1fr}}
+
+/* --- ДУЭЛЬ CLAUDE vs CHATGPT (согласовано 01.08) --- */
+.duel{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel);margin-top:30px}
+.duel__head{display:grid;grid-template-columns:1fr 56px 1fr;align-items:center;text-align:center;
+  padding:26px 18px 20px;border-bottom:1px solid var(--line)}
+.duel__side{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:clamp(17px,2.4vw,24px)}
+.duel__side small{display:block;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:11px;
+  letter-spacing:.16em;margin-top:6px;color:var(--faint);text-transform:uppercase}
+.duel__side--l{color:var(--faint)}
+.duel__side--r{color:var(--glow);text-shadow:0 0 30px color-mix(in srgb,var(--accent) 40%,transparent)}
+.duel__x{font-family:"JetBrains Mono",monospace;color:var(--energy);font-weight:700;font-size:18px}
+.duel__round{display:grid;grid-template-columns:1fr 56px 1fr;align-items:stretch;
+  border-bottom:1px solid var(--line);transition:background .3s}
+.duel__round:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.duel__c{padding:22px 26px}
+.duel__c--l{color:var(--faint);text-align:right}
+.duel__c b{display:block;font-family:"Inter Tight",sans-serif;font-weight:800;font-size:16.5px;margin-bottom:5px}
+.duel__c--r b{color:var(--glow)}
+.duel__c p{font-size:14.5px;line-height:1.5;margin:0}
+.duel__c--r p{color:var(--dim)}
+.duel__mid{display:grid;place-items:center}
+.duel__mid i{width:10px;height:10px;border-radius:50%;background:var(--line-strong);transition:.3s}
+.duel__round:hover .duel__mid i{background:var(--accent);box-shadow:0 0 16px var(--accent)}
+.duel__meter{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:20px 26px;
+  background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.duel__bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.duel__bar i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#1b3a5c,var(--accent),var(--glow));transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+.duel__meter span{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;color:var(--glow);white-space:nowrap}
+@media(max-width:720px){
+  .duel__head,.duel__round{grid-template-columns:1fr;gap:0}
+  .duel__x{padding:10px 0}
+  .duel__c{padding:16px 18px;text-align:left}
+  .duel__c--l{text-align:left;padding-bottom:6px}
+  .duel__c--r{padding-top:6px;border-top:1px dashed var(--line)}
+  .duel__mid{display:none}
+}

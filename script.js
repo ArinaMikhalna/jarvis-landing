@@ -261,6 +261,17 @@
     fill(rateR); fill(hoursR); recompute(); tick(); setInterval(tick, 1000);
   })();
 
+  /* ---------- ДУЭЛЬ: шкала перевеса заполняется при появлении ---------- */
+  (function duelMeter() {
+    var fill = document.getElementById("duelFill"); if (!fill) return;
+    var box = fill.closest(".duel"); if (!box) return;
+    if (!("IntersectionObserver" in window)) { fill.style.width = "86%"; return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { fill.style.width = "86%"; io.unobserve(en.target); } });
+    }, { threshold: .35 });
+    io.observe(box);
+  })();
+
   /* ---------- ГРАФИК ПОТЕРЬ: живой — пересчитывается от ползунков, точка пульсирует ---------- */
   (function lossChart() {
     var cv = document.getElementById("lossChart"); if (!cv || !cv.getContext) return;
