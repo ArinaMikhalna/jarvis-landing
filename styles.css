@@ -278,7 +278,9 @@ html.is-tg .topbar{position:absolute}
 .problem__big{text-align:center}
 .problem__text .h2{max-width:none;text-wrap:pretty}
 .bignum{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(90px,15vw,200px);line-height:.8;
-  color:var(--energy);text-shadow:0 0 50px color-mix(in srgb,var(--energy) 45%,transparent);display:block}
+  --pctcol:color-mix(in srgb,var(--accent) calc(var(--pctp,0)*100%),var(--energy));
+  color:var(--pctcol);text-shadow:0 0 50px color-mix(in srgb,var(--pctcol) 45%,transparent);display:block}
+.bignum b{font-weight:inherit;font-variant-numeric:tabular-nums}
 .bignum i{font-style:normal;font-size:.4em;vertical-align:super}
 .bignum__cap{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--faint);display:block;margin-top:8px}
 .problem__text .lead+.lead{margin-top:16px}

@@ -274,23 +274,56 @@
     });
   })();
 
-  /* ---------- СБОРКА КОСТЮМА ПО СКРОЛЛУ ---------- */
+  /* ---------- СБОРКА КОСТЮМА ПО СКРОЛЛУ (плавный скраб) ---------- */
   (function assembly() {
     var sec = $("#program"); if (!sec) return;
     var parts = $$(".suit .part, .part-img, .suit-aura");
     var lessons = $$(".lesson"), dots = $$("#steps span"), fill = $("#asmFill"), STEPS = 8;
     var lastStep = -1;
+    var mobile = matchMedia("(max-width:860px)");
+    // стартовые смещения деталей — как в CSS, отсюда интерполируем к нулю
+    var FROM = { 1:{x:0,y:0,s:.5}, 2:{x:0,y:-40,s:.92}, 3:{x:0,y:30,s:.96},
+                 4:{x:-40,y:0,s:.94}, 5:{x:0,y:46,s:.94}, 6:{x:0,y:60,s:.92} };
     onScroll(function () {
       var rect = sec.getBoundingClientRect(), total = sec.offsetHeight - innerHeight;
       var progress = total > 0 ? Math.min(1, Math.max(0, (-rect.top) / total)) : 0;
       var step = Math.min(STEPS - 1, Math.floor(progress * STEPS));   // 0..7
       if (fill) fill.style.width = (progress * 100) + "%";
-      if (step === lastStep) return;            // ничего не трогаем, пока шаг тот же
+      // детали: каждая плавно встаёт на место на своём отрезке скролла
+      for (var i = 0; i < parts.length; i++) {
+        var el = parts[i], k = +el.getAttribute("data-part");
+        var q = Math.min(1, Math.max(0, progress * STEPS - k + 1));   // 0..1 на отрезке [k-1, k]
+        var e = q * q * (3 - 2 * q);                                  // мягкое замедление
+        el.style.transition = "none";                                 // скролл ведёт кадр напрямую
+        if (el.classList.contains("suit-aura")) {
+          el.style.opacity = e;
+        } else if (mobile.matches) {
+          el.style.opacity = .18 + .82 * e;
+          el.style.transform = "none";
+        } else {
+          var f = FROM[k] || FROM[3];
+          el.style.opacity = e;
+          el.style.transform = "translate(" + (f.x * (1 - e)) + "px," + (f.y * (1 - e)) + "px) scale(" + (f.s + (1 - f.s) * e) + ")";
+        }
+        el.classList.toggle("is-on", q >= .999);                      // пульс/свечение — когда деталь встала
+      }
+      if (step === lastStep) return;
       lastStep = step;
-      // костюм собирается на шагах 1..7 (урок 00 — вводный, деталей ещё нет)
-      for (var i = 0; i < parts.length; i++) parts[i].classList.toggle("is-on", (+parts[i].getAttribute("data-part")) <= step);
       lessons.forEach(function (l) { l.classList.toggle("is-active", (+l.getAttribute("data-step")) === step); });
       dots.forEach(function (d, i) { d.classList.toggle("on", i <= step); });
+    });
+  })();
+
+  /* ---------- 10% → 100%: цифра наливается по скроллу ---------- */
+  (function pctScrub() {
+    var num = document.getElementById("pctNum"); if (!num) return;
+    var big = num.closest(".bignum"), sec = document.getElementById("problem");
+    onScroll(function () {
+      var r = sec.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (innerHeight * 1.05)));
+      var e = p * p * (3 - 2 * p);
+      num.textContent = Math.round(10 + 90 * e);
+      big.style.setProperty("--pctp", e.toFixed(3));
     });
   })();
 
