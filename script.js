@@ -261,33 +261,52 @@
     fill(rateR); fill(hoursR); recompute(); tick(); setInterval(tick, 1000);
   })();
 
-  /* ---------- ГРАФИК ПОТЕРЬ: линия рисуется при появлении ---------- */
+  /* ---------- ГРАФИК ПОТЕРЬ: живой — пересчитывается от ползунков, точка пульсирует ---------- */
   (function lossChart() {
     var cv = document.getElementById("lossChart"); if (!cv || !cv.getContext) return;
-    var ctx = cv.getContext("2d"), t0 = null, started = false;
-    function draw(ts) {
-      if (t0 === null) t0 = ts;
+    var ctx = cv.getContext("2d"), visible = false, running = false;
+    var amp = 0, ampTarget = 1, reveal = 0;   // amp — высота кривой (доля), reveal — прорисовка слева направо
+    function currentAmp() {
+      // высота кривой зависит от месячных потерь: 0 ₽ → плоско, 250к+ ₽ → максимум
+      var el = document.getElementById("lossMonth");
+      var v = el ? parseInt((el.textContent || "0").replace(/[^\d]/g, ""), 10) || 0 : 0;
+      return Math.min(1, Math.max(.12, v / 250000));
+    }
+    function frame(ts) {
+      if (!visible) { running = false; return; }
       var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
       if (cv.width !== Math.round(r.width * d)) { cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); }
       var w = r.width, h = r.height; ctx.clearRect(0, 0, w, h);
-      var p = Math.min(1, (ts - t0) / 2000), e = 1 - Math.pow(1 - p, 3);
+      ampTarget = currentAmp();
+      amp += (ampTarget - amp) * .08;                 // плавно тянемся к новому значению
+      reveal = Math.min(1, reveal + .022);            // первичная прорисовка
       ctx.strokeStyle = "rgba(255,255,255,.08)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(0, h - 8); ctx.lineTo(w, h - 8); ctx.stroke();
       ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = "#EE140F";
-      var N = 50;
-      for (var i = 0; i <= N * e; i++) { var q = i / N;
-        var y = h - 8 - Math.pow(q, 1.7) * (h - 18);
+      var N = 60;
+      for (var i = 0; i <= N * reveal; i++) { var q = i / N;
+        var y = h - 8 - Math.pow(q, 1.7) * (h - 18) * amp;
         var x = q * w; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
       ctx.stroke();
-      var ex = e * w, ey = h - 8 - Math.pow(e, 1.7) * (h - 18);
+      // пульсирующая точка на конце — «потери капают прямо сейчас»
+      var ex = reveal * w, ey = h - 8 - Math.pow(reveal, 1.7) * (h - 18) * amp;
+      var pulse = (Math.sin(ts / 420) + 1) / 2;
+      ctx.fillStyle = "rgba(238,20,15," + (.25 + pulse * .3).toFixed(3) + ")";
+      ctx.beginPath(); ctx.arc(ex, ey, 7 + pulse * 5, 0, 7); ctx.fill();
       ctx.fillStyle = "#EE140F"; ctx.beginPath(); ctx.arc(ex, ey, 3.5, 0, 7); ctx.fill();
-      if (p < 1) requestAnimationFrame(draw);
+      requestAnimationFrame(frame);
     }
+    function start() { if (!running) { running = true; requestAnimationFrame(frame); } }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
-        es.forEach(function (en) { if (en.isIntersecting && !started) { started = true; requestAnimationFrame(draw); } });
-      }, { threshold: .4 }).observe(cv);
-    } else { requestAnimationFrame(draw); }
+        es.forEach(function (en) { visible = en.isIntersecting; if (visible) start(); });
+      }, { threshold: .25 }).observe(cv);
+    } else { visible = true; start(); }
+    // ползунки меняют значения → кривая перестраивается (amp дотянется сам)
+    ["rate", "rateR", "hours", "hoursR"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", function () { reveal = Math.min(reveal, .999); });
+    });
   })();
 
   /* ---------- 3D-ДЕТАЛИ КОСТЮМА: подхват PNG, если есть ---------- */
@@ -355,17 +374,38 @@
     });
   })();
 
-  /* ---------- 10% → 100%: цифра наливается по скроллу ---------- */
+  /* ---------- 10% → 100%: цифра наливается по скроллу.
+     100 достигается, когда блок занял экран (top ≈ треть вьюпорта) ---------- */
   (function pctScrub() {
     var num = document.getElementById("pctNum"); if (!num) return;
     var big = num.closest(".bignum"), sec = document.getElementById("problem");
     onScroll(function () {
       var r = sec.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (innerHeight * 1.05)));
-      var e = p * p * (3 - 2 * p);
-      num.textContent = Math.round(10 + 90 * e);
-      big.style.setProperty("--pctp", e.toFixed(3));
+      var p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .68)));
+      num.textContent = Math.round(10 + 90 * p);
+      big.style.setProperty("--pctp", p.toFixed(3));
     });
+  })();
+
+  /* ---------- РЕАКТОР В HERO: позиция по реальной картинке ---------- */
+  (function reactorPlace() {
+    var fx = document.querySelector(".reactor-fx"), ph = document.querySelector(".hero__photo");
+    if (!fx || !ph) { if (fx) fx.style.display = "none"; return; }
+    var FX = 0.490, FY = 0.524;               // центр реактора в hero.webp (доли ширины/высоты)
+    function place() {
+      if (!ph.naturalWidth) return;
+      var rw = ph.clientWidth, rh = ph.clientHeight;
+      var scale = Math.min(rw / ph.naturalWidth, rh / ph.naturalHeight);
+      var dw = ph.naturalWidth * scale, dh = ph.naturalHeight * scale;
+      var ox = (rw - dw) * .5, oy = (rh - dh) * .4;   // object-position: 50% 40%
+      var size = Math.max(48, dw * .16);
+      fx.style.left = (ph.offsetLeft + ox + dw * FX) + "px";
+      fx.style.top = (ph.offsetTop + oy + dh * FY) + "px";
+      fx.style.width = size + "px";
+      fx.style.height = size + "px";
+    }
+    if (ph.complete) place(); else ph.addEventListener("load", place);
+    addEventListener("resize", place);
   })();
 
   /* ---------- СТРЕЛКИ ПРОКРУТКИ ОТЗЫВОВ ---------- */

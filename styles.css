@@ -615,9 +615,9 @@ html.is-tg .topbar{position:absolute}
 .caps{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
 .cap{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--dim);border:1px solid var(--line);
   border-radius:999px;padding:11px 18px;background:rgba(0,0,0,.25);transition:.25s;cursor:default}
-.cap:hover{border-color:var(--accent);color:var(--text);box-shadow:0 0 22px -8px var(--accent)}
-.cap--on{color:var(--bg);background:var(--accent);border-color:var(--accent);font-weight:600;box-shadow:0 0 24px -8px var(--accent)}
-.cap--on:hover{color:var(--bg)}
+.cap:hover{border-color:var(--line-strong);color:var(--text)}
+.cap--on{color:var(--glow);background:color-mix(in srgb,var(--accent) 14%,transparent);border-color:color-mix(in srgb,var(--accent) 45%,transparent);font-weight:600}
+.cap--on:hover{color:var(--glow)}
 .cap--more{background:transparent;border-style:dashed;border-color:var(--line-strong);color:var(--dim);font-weight:400}
 .cap--more:hover{color:var(--text);border-color:var(--accent)}
 /* мобилка: компактные плашки — больше в ряд, блок короче (как у конкурента) */
@@ -870,22 +870,26 @@ html.is-tg .topbar{position:absolute}
   .cookie__btn{flex:1;padding:12px 10px;text-align:center}
 }
 
-/* --- свечение карточек по всему сайту (согласовано 01.08) --- */
-.case,.plan,.quote,.faq__item,.guarantee,.stat{transition:border-color .3s,box-shadow .3s}
-.case:hover,.plan:hover,.quote:hover,.guarantee:hover,.stat:hover,.faq__item:hover{
-  border-color:var(--accent);box-shadow:0 0 34px -12px var(--accent)}
+/* --- свечение: только кликабельное и крупные смысловые карточки (правка Арины 01.08) --- */
+.plan,.faq__item{transition:border-color .3s,box-shadow .3s}
+.plan:hover,.faq__item:hover{border-color:var(--accent);box-shadow:0 0 34px -12px var(--accent)}
+.case,.quote,.guarantee,.stat{transition:border-color .3s}
+.case:hover,.quote:hover,.guarantee:hover,.stat:hover{border-color:var(--line-strong)}
 
 /* --- реактор в hero: живое свечение (согласовано 01.08) --- */
-.reactor-fx{position:absolute;left:50%;top:52%;width:120px;height:120px;transform:translate(-50%,-50%);
-  z-index:4;pointer-events:none}
+.reactor-fx{position:absolute;z-index:4;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:screen}
 .reactor-fx i{position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle,rgba(134,214,255,.55),rgba(0,163,255,.22) 45%,transparent 70%);
-  animation:rfx-pulse 2.2s ease-in-out infinite}
-.reactor-fx b,.reactor-fx u{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(134,214,255,.55);
-  animation:rfx-ring 2.8s linear infinite;opacity:0}
-.reactor-fx u{animation-delay:1.4s}
-@keyframes rfx-pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}
-@keyframes rfx-ring{0%{opacity:.7;transform:scale(.5)}100%{opacity:0;transform:scale(2.1)}}
+  background:radial-gradient(circle,rgba(234,246,255,.95) 0%,rgba(134,214,255,.55) 26%,rgba(0,163,255,.18) 52%,transparent 72%);
+  animation:rfx-core 2.4s ease-in-out infinite}
+.reactor-fx u{position:absolute;inset:-46%;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,163,255,.28),rgba(0,163,255,.08) 55%,transparent 75%);
+  animation:rfx-halo 2.4s ease-in-out infinite}
+.reactor-fx b{position:absolute;left:-85%;right:-85%;top:calc(50% - 1px);height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,rgba(134,214,255,.75) 30%,#eaf6ff 50%,rgba(134,214,255,.75) 70%,transparent);
+  animation:rfx-flare 4.8s ease-in-out infinite}
+@keyframes rfx-core{0%,100%{opacity:.75;transform:scale(.94)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes rfx-halo{0%,100%{opacity:.5;transform:scale(.96)}50%{opacity:.95;transform:scale(1.1)}}
+@keyframes rfx-flare{0%,100%{opacity:.12;transform:scaleX(.55)}8%{opacity:.55}12%{opacity:.2}50%{opacity:.75;transform:scaleX(1)}54%{opacity:.35}58%{opacity:.6}}
 
 /* --- график потерь в калькуляторе (согласовано 01.08) --- */
 #lossChart{display:block;width:100%;height:76px;margin-top:12px}
