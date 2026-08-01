@@ -378,12 +378,11 @@
      100 достигается, когда блок занял экран (top ≈ треть вьюпорта) ---------- */
   (function pctScrub() {
     var num = document.getElementById("pctNum"); if (!num) return;
-    var big = num.closest(".bignum"), sec = document.getElementById("problem");
+    var sec = document.getElementById("problem");
     onScroll(function () {
       var r = sec.getBoundingClientRect();
       var p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .88)));
-      num.textContent = Math.round(10 + 90 * p);
-      big.style.setProperty("--pctp", p.toFixed(3));
+      num.textContent = Math.round(20 * p);          // 0 → 20: столько человек использует Claude сейчас
     });
   })();
 

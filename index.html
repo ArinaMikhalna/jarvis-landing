@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260801b" />
+<link rel="stylesheet" href="styles.css?v=20260801c" />
 
 <!-- Yandex.Metrika: загружается ТОЛЬКО после согласия на cookie (152-ФЗ).
      Функция определена здесь, вызывается из cookieConsent() в script.js -->
@@ -198,7 +198,7 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
       <div class="hud-corner">SEQ 002 / 007 // DIAGNOSTIC</div>
       <div class="problem__layout">
         <div class="problem__big">
-          <span class="bignum"><b id="pctNum">10</b><i>%</i></span>
+          <span class="bignum"><b id="pctNum">0</b><i>%</i></span>
           <span class="bignum__cap">так ты сейчас используешь Claude</span>
         </div>
         <div class="problem__text">
@@ -701,6 +701,36 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
     </div>
   </section>
 
+  <!-- ============ 07.5 · САМ vs КУРС ============ -->
+  <section class="section vscourse">
+    <div class="wrap">
+      <div class="hud-corner">// COMPARE</div>
+      <h2 class="h2 reveal">Разбираться самому или <span class="accent">один вечер с курсом</span></h2>
+
+      <div class="vscourse__grid reveal">
+        <article class="vscourse__col vscourse__col--lose">
+          <h3>Самому по роликам</h3>
+          <ul>
+            <li>Несколько месяцев проб и ошибок</li>
+            <li>Десятки разрозненных роликов на YouTube</li>
+            <li>Половина инструкций не работает из России</li>
+            <li>Самый частый финал — бросить на полпути</li>
+          </ul>
+        </article>
+        <article class="vscourse__col vscourse__col--win">
+          <h3>Один вечер с курсом</h3>
+          <ul>
+            <li>8 уроков в правильном порядке</li>
+            <li>Вход из России за 30 минут — со скриншотами</li>
+            <li>Каждый шаг проверен на учениках</li>
+            <li>К полуночи — работающая система</li>
+          </ul>
+        </article>
+        <p class="vscourse__sign">«Я сама училась этому несколько месяцев. На курсе это — один вечер»</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 08 · ЦЕНА + СРОЧНОСТЬ ============ -->
   <section class="section price" id="price" data-ghost="08">
     <div class="wrap">
@@ -853,6 +883,6 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
   </div>
 </div>
 
-<script src="script.js?v=20260801b" defer></script>
+<script src="script.js?v=20260801c" defer></script>
 </body>
 </html>
