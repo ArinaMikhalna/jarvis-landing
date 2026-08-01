@@ -381,7 +381,7 @@
     var big = num.closest(".bignum"), sec = document.getElementById("problem");
     onScroll(function () {
       var r = sec.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .68)));
+      var p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .88)));
       num.textContent = Math.round(10 + 90 * p);
       big.style.setProperty("--pctp", p.toFixed(3));
     });
@@ -491,10 +491,18 @@
       try { localStorage.setItem(KEY, value); } catch (e) {}
       if (value === "yes" && typeof window.__initMetrika === "function") window.__initMetrika();
       banner.hidden = true;
+      liftCta();
     }
 
+    // липкая кнопка «Получить доступ» поднимается над баннером, пока он открыт
+    function liftCta() {
+      var h = banner.hidden ? 0 : banner.offsetHeight + 12;
+      document.documentElement.style.setProperty("--cookie-h", h + "px");
+    }
+    addEventListener("resize", liftCta);
+
     // Показываем не мгновенно, чтобы не спорить с экраном загрузки
-    setTimeout(function () { banner.hidden = false; }, 900);
+    setTimeout(function () { banner.hidden = false; liftCta(); }, 900);
 
     var yes = $("#cookieAccept"), no = $("#cookieDecline");
     if (yes) yes.addEventListener("click", function () { decide("yes"); });

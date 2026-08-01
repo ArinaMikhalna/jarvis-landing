@@ -79,7 +79,8 @@ body::before{
 /* position:absolute (не fixed): fixed на iOS прижат к видимой области между панелями браузера.
    absolute раскладывается в общем макете. Контент по центру (100lvh), а псевдоэлементы ::before/::after
    продлевают тёмный фон ВВЕРХ и ВНИЗ за пределы экрана — закрывают зоны за панелями браузера. */
-.boot{position:absolute;top:0;left:0;right:0;height:100vh;height:100lvh;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s}
+.boot{position:absolute;top:0;left:0;right:0;height:100vh;height:100lvh;z-index:200;background:#02040a;display:grid;place-items:center;cursor:pointer;transition:opacity .6s,visibility .6s;animation:bootFailsafe .6s ease 3.2s forwards}
+@keyframes bootFailsafe{to{opacity:0;visibility:hidden}}
 .boot::before,.boot::after{content:"";position:absolute;left:0;right:0;height:80vh;background:#02040a;pointer-events:none}
 .boot::before{bottom:100%}
 .boot::after{top:100%}
@@ -280,7 +281,7 @@ html.is-tg .topbar{position:absolute}
 .bignum{font-family:"Inter Tight",sans-serif;font-weight:900;font-size:clamp(90px,15vw,200px);line-height:.8;
   --pctcol:color-mix(in srgb,var(--accent) calc(var(--pctp,0)*100%),var(--energy));
   color:var(--pctcol);text-shadow:0 0 50px color-mix(in srgb,var(--pctcol) 45%,transparent);display:block}
-.bignum b{font-weight:inherit;font-variant-numeric:tabular-nums}
+.bignum b{font-weight:inherit;font-variant-numeric:tabular-nums;display:inline-block;min-width:3ch;text-align:right}
 .bignum i{font-style:normal;font-size:.4em;vertical-align:super}
 .bignum__cap{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--faint);display:block;margin-top:8px}
 .problem__text .lead+.lead{margin-top:16px}
@@ -751,7 +752,7 @@ html.is-tg .topbar{position:absolute}
 .ctaband__wrap p b{color:var(--accent)}
 
 /* -------- ЛИПКАЯ КНОПКА -------- */
-.sticky-cta{position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,28px);z-index:75;
+.sticky-cta{position:fixed;right:clamp(16px,3vw,32px);bottom:calc(clamp(16px,3vw,28px) + var(--cookie-h,0px));z-index:75;transition:bottom .3s ease;
   display:inline-flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;
   letter-spacing:.04em;padding:15px 22px;border-radius:12px;background:var(--accent);color:#02040a;
   box-shadow:0 0 40px -8px var(--accent),0 10px 30px -10px rgba(0,0,0,.6);
@@ -863,9 +864,9 @@ html.is-tg .topbar{position:absolute}
   box-shadow:0 0 28px -8px var(--accent)}
 .cookie__btn--ok:hover{color:#02040a;box-shadow:0 0 40px -6px var(--accent)}
 @media(max-width:760px){
-  .cookie{left:10px;right:10px;bottom:10px;padding:15px 16px;gap:13px}
-  .cookie__title{font-size:14px;margin-bottom:-6px}
-  .cookie__text{flex:1 1 100%;font-size:13px}
+  .cookie{left:10px;right:10px;bottom:10px;padding:11px 12px;gap:9px}
+  .cookie__title{display:none}
+  .cookie__text{flex:1 1 100%;font-size:12px;line-height:1.45}
   .cookie__btns{margin-left:0;width:100%}
   .cookie__btn{flex:1;padding:12px 10px;text-align:center}
 }
