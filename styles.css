@@ -227,8 +227,8 @@ html.is-tg .topbar{position:absolute}
     /* мягкое растворение нижнего края — резкая линия обреза уходит в туман */
     -webkit-mask-image:linear-gradient(#000 72%, transparent 99%);
             mask-image:linear-gradient(#000 72%, transparent 99%)}
-  /* origin сверху: увеличение растёт только вниз, макушка не обрезается */
-  .hero__photo{transform:scale(1.08);transform-origin:50% 0}
+  /* origin снизу: низ прибит (не меняется), увеличение поднимает голову к уровню текста */
+  .hero__photo{transform:scale(1.16);transform-origin:50% 100%}
 }
 .hero__ph{position:absolute;inset:8% 4%;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;border:1.5px dashed var(--line-strong);border-radius:24px;text-align:center;
