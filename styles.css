@@ -220,9 +220,11 @@ html.is-tg .topbar{position:absolute}
   filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 20%,transparent));
   -webkit-mask-image:radial-gradient(78% 74% at 50% 42%, #000 56%, transparent 95%);
           mask-image:radial-gradient(78% 74% at 50% 42%, #000 56%, transparent 95%)}
-/* Десктоп: эталонный образ, лишь капельку крупнее и ниже — чтобы низ дошёл до края (мобилу не трогаем) */
+/* Десктоп: снимаем жёсткий потолок высоты 1040px (обрезал контейнер на больших экранах → зазор снизу)
+   + образ на 10% крупнее, чтобы низ доходил до края. Мобилу не трогаем. */
 @media(min-width:901px){
-  .hero__photo{transform:scale(1.08);transform-origin:50% 46%}
+  .hero__visual{min-height:82svh}
+  .hero__photo{transform:scale(1.10);transform-origin:50% 44%}
 }
 .hero__ph{position:absolute;inset:8% 4%;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;border:1.5px dashed var(--line-strong);border-radius:24px;text-align:center;
