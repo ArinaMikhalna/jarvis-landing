@@ -220,6 +220,13 @@ html.is-tg .topbar{position:absolute}
   filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 20%,transparent));
   -webkit-mask-image:radial-gradient(78% 74% at 50% 42%, #000 56%, transparent 95%);
           mask-image:radial-gradient(78% 74% at 50% 42%, #000 56%, transparent 95%)}
+/* Десктоп: герой уходит в самый низ экрана без пустого зазора снизу (мобилу не трогаем) */
+@media(min-width:901px){
+  .hero__visual{top:0;margin-bottom:0;min-height:100svh;height:100svh;align-self:stretch}
+  .hero__photo{object-fit:cover;object-position:50% 12%;
+    -webkit-mask-image:radial-gradient(115% 108% at 50% 46%, #000 66%, transparent 99%);
+            mask-image:radial-gradient(115% 108% at 50% 46%, #000 66%, transparent 99%)}
+}
 .hero__ph{position:absolute;inset:8% 4%;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;border:1.5px dashed var(--line-strong);border-radius:24px;text-align:center;
   font-family:"JetBrains Mono",monospace;background:radial-gradient(circle at 50% 40%, color-mix(in srgb,var(--accent) 8%,transparent), transparent 70%)}
