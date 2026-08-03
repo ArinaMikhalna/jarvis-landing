@@ -179,7 +179,7 @@ html.is-tg .topbar{position:absolute}
   -webkit-mask:radial-gradient(circle,transparent 2px,#000 2.5px);mask:radial-gradient(circle,transparent 2px,#000 2.5px);
   filter:drop-shadow(0 0 6px var(--accent));animation:spin 9s linear infinite;transform-origin:50% 50%}
 .hero .hud-line{margin-bottom:18px}
-.hero__title{font-family:"Inter Tight",sans-serif;font-weight:900;line-height:1.04;font-size:clamp(32px,5.2vw,64px);
+.hero__title{font-family:"Unbounded",sans-serif;font-weight:900;line-height:1.04;font-size:clamp(32px,5.2vw,64px);
   letter-spacing:-.02em;max-width:24ch;margin:0 auto 8px}
 .hero__title em{color:var(--accent);text-shadow:0 0 50px color-mix(in srgb,var(--accent) 55%,transparent)}
 /* плашка-выделение ключевого слова (как у конкурента, но по-своему) */
