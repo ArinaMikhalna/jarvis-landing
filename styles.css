@@ -223,7 +223,10 @@ html.is-tg .topbar{position:absolute}
 /* Десктоп: снимаем жёсткий потолок высоты 1040px (обрезал контейнер на больших экранах → зазор снизу)
    + образ на 10% крупнее, чтобы низ доходил до края. Мобилу не трогаем. */
 @media(min-width:901px){
-  .hero__visual{min-height:82svh;top:85px}
+  .hero__visual{min-height:82svh;top:85px;
+    /* мягкое растворение нижнего края — резкая линия обреза уходит в туман */
+    -webkit-mask-image:linear-gradient(#000 72%, transparent 99%);
+            mask-image:linear-gradient(#000 72%, transparent 99%)}
   /* origin сверху: увеличение растёт только вниз, макушка не обрезается */
   .hero__photo{transform:scale(1.08);transform-origin:50% 0}
 }
