@@ -378,6 +378,9 @@ html.is-tg .topbar{position:absolute}
   color:#02040a;background:var(--accent);border-radius:999px;padding:3px 11px}
 .lesson h3{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:clamp(28px,4.6vw,58px);margin:14px 0 16px;line-height:1.04;letter-spacing:-.01em}
 .lesson p{color:var(--dim);font-size:clamp(16px,1.95vw,21px);line-height:1.5;max-width:40ch}
+/* строка «Результат:» — визуально отделена от описания */
+.lesson p br{content:"";display:block;height:10px}
+.lesson p b{color:var(--text);font-weight:700}
 .steps{display:flex;gap:8px}
 .steps span{width:30px;height:4px;border-radius:2px;background:var(--line);transition:.4s}
 .steps span.on{background:var(--accent);box-shadow:0 0 10px var(--accent)}
