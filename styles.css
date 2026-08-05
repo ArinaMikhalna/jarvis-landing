@@ -972,3 +972,29 @@ html.is-tg .topbar{position:absolute}
   .duel__c--r{padding-top:6px;border-top:1px dashed var(--line)}
   .duel__mid{display:none}
 }
+
+/* ===== «Доступ сразу»: акцент в тарифах + блок механики оплаты ===== */
+.plan__instant{display:flex;align-items:center;gap:8px;justify-content:center;
+  margin:14px 0 6px;padding:10px 14px;border-radius:12px;
+  font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;letter-spacing:.02em;
+  color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 32%,transparent)}
+
+.afterpay{margin:0 auto 30px;max-width:940px;text-align:center}
+.afterpay__title{display:inline-block;margin-bottom:16px;
+  font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.afterpay__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.afterpay__step{display:flex;align-items:center;gap:12px;text-align:left;
+  padding:16px 18px;border-radius:14px;
+  background:rgba(11,18,32,.6);border:1px solid var(--line)}
+.afterpay__step b{flex:0 0 auto;display:grid;place-items:center;width:30px;height:30px;
+  border-radius:50%;font-family:"JetBrains Mono",monospace;font-size:14px;
+  color:#02040a;background:var(--accent)}
+.afterpay__step span{font-size:15px;line-height:1.4;color:rgba(232,239,250,.9)}
+@media(max-width:760px){
+  .afterpay__steps{grid-template-columns:1fr;gap:10px}
+  .afterpay__step{padding:14px 16px}
+  .afterpay__step span{font-size:14.5px}
+  .plan__instant{font-size:12.5px;padding:9px 12px}
+}

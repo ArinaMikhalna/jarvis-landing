@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=20260804i" />
+<link rel="stylesheet" href="styles.css?v=20260804j" />
 
 <!-- Yandex.Metrika: загружается ТОЛЬКО после согласия на cookie (152-ФЗ).
      Функция определена здесь, вызывается из cookieConsent() в script.js -->
@@ -86,7 +86,7 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
 <!-- ============ ШАПКА ============ -->
 <header class="topbar">
   <div class="topbar__brand">J.A.R.V.I.S.<span>/ Claude за вечер</span></div>
-  <a href="#price" class="topbar__pill" data-magnetic><i aria-hidden="true"></i>НАБОР ОТКРЫТ · ОТ 1490&nbsp;₽</a>
+  <a href="#price" class="topbar__pill" data-magnetic><i aria-hidden="true"></i>НАБОР ОТКРЫТ · ОТ 1490&nbsp;₽ · ДОСТУП СРАЗУ</a>
 </header>
 
 <main>
@@ -786,6 +786,15 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
 
       <h2 class="h2 reveal">Два тарифа. <span class="accent">Выбери свой</span></h2>
 
+      <div class="afterpay reveal">
+        <span class="afterpay__title">Что происходит после оплаты</span>
+        <div class="afterpay__steps">
+          <div class="afterpay__step"><b>1</b><span>Оплачиваешь в&nbsp;боте — картой РФ</span></div>
+          <div class="afterpay__step"><b>2</b><span>Бот сразу присылает доступ — ждать никого не&nbsp;нужно</span></div>
+          <div class="afterpay__step"><b>3</b><span>Открываешь первый урок и&nbsp;начинаешь собирать</span></div>
+        </div>
+      </div>
+
       <div class="price__grid">
         <article class="plan framed reveal">
           <h3 class="plan__name">ПРОТОТИП</h3>
@@ -797,7 +806,8 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
             <li>Доступ на 2 недели</li>
           </ul>
           <a href="https://t.me/arinamikhalna_ai_bot?start=paymentsite" class="btn btn--ghost" data-magnetic>Получить доступ · 1490&nbsp;₽</a>
-          <p class="plan__trust">Доступ сразу · Возврат 7 дней</p>
+          <p class="plan__instant">⚡ Доступ открывается сразу после оплаты</p>
+          <p class="plan__trust">Бот пришлёт ссылку через минуту · Возврат 7 дней</p>
         </article>
 
         <article class="plan plan--pro framed reveal">
@@ -812,7 +822,8 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
             <li>Доступ навсегда, со всеми обновлениями</li>
           </ul>
           <a href="https://t.me/arinamikhalna_ai_bot?start=paymentsite" class="btn btn--primary" data-magnetic>Забрать ДЖАРВИСА · 4990&nbsp;₽</a>
-          <p class="plan__trust">Доступ сразу · Возврат 7 дней</p>
+          <p class="plan__instant">⚡ Доступ открывается сразу после оплаты</p>
+          <p class="plan__trust">Бот пришлёт ссылку через минуту · Возврат 7 дней</p>
         </article>
       </div>
 
@@ -931,6 +942,6 @@ try { if (localStorage.getItem("jarvis_cookie_consent") === "yes") window.__init
   </div>
 </div>
 
-<script src="script.js?v=20260804i" defer></script>
+<script src="script.js?v=20260804j" defer></script>
 </body>
 </html>
