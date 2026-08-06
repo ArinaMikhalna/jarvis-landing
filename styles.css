@@ -980,7 +980,7 @@ html.is-tg .topbar{position:absolute}
   color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);
   border:1px solid color-mix(in srgb,var(--accent) 32%,transparent)}
 
-.afterpay{margin:0 auto 30px;max-width:940px;text-align:center}
+.afterpay{margin:46px auto 34px;max-width:940px;text-align:center}
 .afterpay__title{display:inline-block;margin-bottom:16px;
   font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
