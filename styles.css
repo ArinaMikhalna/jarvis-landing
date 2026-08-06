@@ -1026,3 +1026,12 @@ html.is-tg .topbar{position:absolute}
   .stack__val{font-size:14px}
   .stack__row{gap:10px}
 }
+
+/* Мобильные фиксы: плашка не влезает + .section{text-align:center} ломал выравнивание списков */
+@media(max-width:600px){
+  .topbar__extra{display:none}
+  .vscourse__col li,
+  .stack__what,.stack__val,
+  .afterpay__step span{text-align:left}
+  .stack__row,.stack__total,.stack__price{text-align:left}
+}
