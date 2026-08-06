@@ -998,3 +998,31 @@ html.is-tg .topbar{position:absolute}
   .afterpay__step span{font-size:14.5px}
   .plan__instant{font-size:12.5px;padding:9px 12px}
 }
+
+/* ===== Стек ценности: что входит и сколько стоит по отдельности ===== */
+.stack{max-width:820px;margin:0 auto 34px;padding:26px 28px;border-radius:18px;
+  background:rgba(11,18,32,.6);border:1px solid var(--line)}
+.stack__kicker{display:block;margin-bottom:18px;text-align:center;
+  font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.stack__rows{display:flex;flex-direction:column}
+.stack__row{display:flex;align-items:baseline;gap:14px;padding:13px 0;
+  border-bottom:1px dashed var(--line)}
+.stack__what{flex:1;font-size:16px;line-height:1.45;color:rgba(232,239,250,.9)}
+.stack__val{flex:0 0 auto;font-family:"JetBrains Mono",monospace;font-size:15px;
+  color:var(--dim);white-space:nowrap}
+.stack__total{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:16px 0 4px;font-size:16px;color:var(--dim)}
+.stack__total b{font-family:"JetBrains Mono",monospace;font-size:20px;color:var(--text);
+  text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--accent) 70%,transparent)}
+.stack__price{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding-top:10px;margin-top:8px;border-top:1px solid var(--line-strong);
+  font-size:17px;font-weight:600;color:var(--text)}
+.stack__price b{font-family:"Unbounded",sans-serif;font-weight:800;
+  font-size:clamp(26px,3.4vw,34px);color:var(--accent);letter-spacing:-.01em}
+@media(max-width:600px){
+  .stack{padding:20px 18px}
+  .stack__what{font-size:15px}
+  .stack__val{font-size:14px}
+  .stack__row{gap:10px}
+}
